@@ -85,11 +85,11 @@
   }
 }
 
-/* Enhanced animations with micro-interactions */
+/* Calm animations - only subtle transitions */
 @keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(5px);
   }
   to {
     opacity: 1;
@@ -100,7 +100,7 @@
 @keyframes slide-up {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -108,119 +108,12 @@
   }
 }
 
-@keyframes glow-pulse {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-4px);
-  }
-}
-
-@keyframes gradient-flow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@keyframes magnetic-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(6, 182, 212, 0.5), 0 0 40px rgba(59, 130, 246, 0.3);
-  }
-}
-
-@keyframes sparkle {
-  0%, 100% {
-    opacity: 0;
-    transform: scale(0);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes gentle-bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-2px);
-  }
-}
-
-@keyframes subtle-rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 .animate-fade-in {
-  animation: fade-in 0.4s ease-out;
+  animation: fade-in 0.3s ease-out;
 }
 
 .animate-slide-up {
-  animation: slide-up 0.6s ease-out;
-}
-
-.animate-glow-pulse {
-  animation: glow-pulse 2s ease-in-out infinite;
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-.animate-gradient-flow {
-  background-size: 200% 200%;
-  animation: gradient-flow 3s ease infinite;
-}
-
-.animate-sparkle {
-  animation: sparkle 1.5s ease-in-out infinite;
-}
-
-.animate-gentle-bounce {
-  animation: gentle-bounce 2s ease-in-out infinite;
-}
-
-.animate-subtle-rotate {
-  animation: subtle-rotate 20s linear infinite;
-}
-
-/* Enhanced magnetic button effects with micro-interactions */
-.magnetic-button:hover {
-  animation: magnetic-glow 2s ease-in-out infinite;
-  transform: translateY(-1px);
-}
-
-.magnetic-button:active {
-  transform: translateY(0px) scale(0.98);
-}
-
-.executive-brief-btn:hover {
-  box-shadow: 0 4px 20px rgba(251, 191, 36, 0.3);
+  animation: slide-up 0.4s ease-out;
 }
 
 /* Tribal accent colors */
@@ -246,9 +139,9 @@
 
 /* Enhanced glass morphism utility */
 .glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* Text clipping for gradients */
@@ -259,64 +152,41 @@
   background-clip: text;
 }
 
-/* Enhanced visual hierarchy utilities with animations */
+/* Subtle visual hierarchy utilities */
 .card-high-priority {
-  border: 1px solid hsl(var(--tribal-amber) / 0.6);
-  box-shadow: 0 10px 40px hsl(var(--tribal-amber) / 0.2);
-  animation: glow-pulse 3s ease-in-out infinite;
+  border: 1px solid hsl(var(--tribal-amber) / 0.3);
+  box-shadow: 0 4px 20px hsl(var(--tribal-amber) / 0.1);
 }
 
 .card-high-value {
-  border: 1px solid rgb(234 179 8 / 0.4);
-  box-shadow: 0 8px 32px rgb(234 179 8 / 0.1);
+  border: 1px solid rgb(234 179 8 / 0.3);
+  box-shadow: 0 4px 16px rgb(234 179 8 / 0.08);
 }
 
 .card-urgent {
-  border: 1px solid rgb(248 113 113 / 0.4);
-  box-shadow: 0 8px 32px rgb(248 113 113 / 0.1);
-  animation: pulse 2s infinite;
+  border: 1px solid rgb(248 113 113 / 0.3);
+  box-shadow: 0 4px 16px rgb(248 113 113 / 0.08);
 }
 
-/* Micro-interaction utilities */
+/* Micro-interaction utilities - subtle only */
 .hover-lift {
   transition: transform 0.2s ease;
 }
 
 .hover-lift:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .interactive-element {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .interactive-element:hover {
-  transform: scale(1.05);
-}
-
-.interactive-element:active {
-  transform: scale(0.95);
+  transform: scale(1.02);
 }
 
 /* Enhanced tooltip styling */
 .tooltip {
   @apply px-2 py-1 bg-background/90 backdrop-blur-sm text-xs text-foreground rounded shadow-lg border border-border/30;
   animation: fade-in 0.2s ease-out;
-}
-
-/* Tribal-inspired accent animations */
-.tribal-accent {
-  position: relative;
-}
-
-.tribal-accent::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(45deg, transparent 40%, hsl(var(--tribal-amber) / 0.1) 50%, transparent 60%);
-  animation: sparkle 3s ease-in-out infinite;
-  pointer-events: none;
 }
