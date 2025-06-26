@@ -1,4 +1,3 @@
-
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { GrantManagerSidebar } from "@/components/GrantManagerSidebar";
 import { PerformanceDashboard } from "@/components/PerformanceDashboard";
@@ -95,27 +94,21 @@ const Index = () => {
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-background relative overflow-hidden">
-        {/* Subtle tribal pattern overlay */}
-        <div className="absolute inset-0 opacity-[0.01] pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-br from-tribal-amber/5 via-transparent to-primary/3" />
-          <div className="absolute top-1/2 right-1/3 text-6xl opacity-[0.015]">🪶</div>
-        </div>
-        
         <GrantManagerSidebar />
         
         <div className="flex-1 flex">
-          <main className="flex-1 overflow-hidden relative z-10">
+          <main className="flex-1 overflow-hidden">
             <div className="h-full flex flex-col">
               {/* Header */}
-              <header className="border-b border-border/20 bg-background/90 backdrop-blur-sm sticky top-0 z-40">
+              <header className="border-b border-border/20 bg-background/95 backdrop-blur-sm sticky top-0 z-40">
                 <div className="flex items-center justify-between p-6">
                   <div className="flex items-center space-x-4">
-                    <SidebarTrigger className="lg:hidden transition-transform hover:scale-105" />
+                    <SidebarTrigger className="lg:hidden" />
                     <div>
-                      <h1 className="text-3xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+                      <h1 className="text-2xl font-bold text-foreground">
                         Grant Discovery
                       </h1>
-                      <p className="text-muted-foreground mt-1">
+                      <p className="text-muted-foreground text-sm mt-1">
                         Saginaw Chippewa Indian Tribe • <span className="text-tribal-amber font-medium">FY 2024</span>
                       </p>
                     </div>
@@ -125,24 +118,23 @@ const Index = () => {
                     <Button 
                       size="sm" 
                       variant="outline" 
-                      className="bg-background/60 backdrop-blur-sm border-border/40 hover:border-tribal-amber/40 hover:bg-tribal-amber/5 transition-all duration-200"
-                      title="Generate executive summary report"
+                      className="bg-background/60 backdrop-blur-sm border-border/40 hover:border-tribal-amber/40"
                     >
-                      <FileDown className="w-3.5 h-3.5 mr-2 opacity-60" />
-                      Executive Brief PDF
+                      <FileDown className="system-icon mr-2" />
+                      Executive Brief
                     </Button>
-                    <Button size="sm" className="bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 shadow-md hover:shadow-lg transition-all duration-200">
-                      <Plus className="w-3.5 h-3.5 mr-2" />
+                    <Button size="sm" className="akios-button-primary">
+                      <Plus className="system-icon mr-2" />
                       New Application
                     </Button>
-                    <Button variant="ghost" size="icon" className="hover:bg-primary/10 transition-colors duration-200">
-                      <Calendar className="w-3.5 h-3.5 opacity-60" />
+                    <Button variant="ghost" size="icon" className="hover:bg-primary/10">
+                      <Calendar className="system-icon" />
                     </Button>
-                    <Button variant="ghost" size="icon" className="hover:bg-primary/10 transition-colors duration-200">
-                      <Bell className="w-3.5 h-3.5 opacity-60" />
+                    <Button variant="ghost" size="icon" className="hover:bg-primary/10">
+                      <Bell className="system-icon" />
                     </Button>
-                    <Button variant="ghost" size="icon" className="hover:bg-primary/10 transition-colors duration-200">
-                      <Settings className="w-3.5 h-3.5 opacity-60" />
+                    <Button variant="ghost" size="icon" className="hover:bg-primary/10">
+                      <Settings className="system-icon" />
                     </Button>
                   </div>
                 </div>
@@ -150,12 +142,12 @@ const Index = () => {
 
               {/* Main Content */}
               <div className="flex-1 overflow-auto">
-                <div className="max-w-7xl mx-auto p-8 space-y-8">
+                <div className="max-w-7xl mx-auto p-6 space-y-8">
                   {/* Performance Dashboard */}
                   <section>
-                    <h2 className="text-2xl font-semibold text-foreground mb-6 flex items-center">
+                    <h2 className="section-header">
                       Performance Overview
-                      <div className="ml-3 w-2 h-2 bg-green-400 rounded-full" />
+                      <div className="w-2 h-2 bg-green-400 rounded-full" />
                     </h2>
                     <PerformanceDashboard />
                   </section>
@@ -163,11 +155,9 @@ const Index = () => {
                   {/* Grant Discovery with Tabs */}
                   <section>
                     <div className="flex items-center justify-between mb-6">
-                      <h2 className="text-2xl font-semibold text-foreground">
-                        Grant Opportunities
-                      </h2>
+                      <h2 className="section-header">Grant Opportunities</h2>
                       <div className="text-sm text-muted-foreground bg-background/60 backdrop-blur-sm px-4 py-2 rounded-full border border-border/20">
-                        <span className="text-tribal-amber font-bold text-lg">{mockGrants.length + aiSuggestions.length}</span> opportunities found
+                        <span className="text-tribal-amber font-semibold">{mockGrants.length + aiSuggestions.length}</span> opportunities
                       </div>
                     </div>
                     
@@ -175,30 +165,30 @@ const Index = () => {
                       <GrantFilters />
                       
                       <Tabs defaultValue="all" className="w-full">
-                        <TabsList className="h-12 bg-background/50 backdrop-blur-sm border border-border/20 p-1">
+                        <TabsList className="h-11 bg-background/50 backdrop-blur-sm border border-border/20 p-1">
                           <TabsTrigger 
                             value="all" 
-                            className="text-base font-semibold data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6"
+                            className="text-sm font-semibold px-4 data-[state=active]:bg-primary/10 data-[state=active]:text-primary"
                           >
                             All Grants
                           </TabsTrigger>
                           <TabsTrigger 
                             value="ai-recommended" 
-                            className="text-base font-semibold data-[state=active]:bg-tribal-amber/10 data-[state=active]:text-tribal-amber data-[state=active]:border-b-2 data-[state=active]:border-tribal-amber rounded-none px-6"
+                            className="text-sm font-semibold px-4 data-[state=active]:bg-tribal-amber/10 data-[state=active]:text-tribal-amber"
                           >
-                            <Sparkles className="w-3.5 h-3.5 mr-2 opacity-70" />
+                            <Sparkles className="system-icon mr-2" />
                             AI Recommended
                           </TabsTrigger>
                           <TabsTrigger 
                             value="impact" 
-                            className="text-base font-semibold data-[state=active]:bg-green-500/10 data-[state=active]:text-green-400 data-[state=active]:border-b-2 data-[state=active]:border-green-400 rounded-none px-6"
+                            className="text-sm font-semibold px-4 data-[state=active]:bg-green-500/10 data-[state=active]:text-green-400"
                           >
                             Impact Dashboard
                           </TabsTrigger>
                         </TabsList>
                         
                         <TabsContent value="all" className="space-y-6 mt-6">
-                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                          <div className="akios-grid">
                             {mockGrants.map((grant, index) => (
                               <GrantDiscoveryCard key={index} {...grant} />
                             ))}
@@ -206,19 +196,19 @@ const Index = () => {
                         </TabsContent>
                         
                         <TabsContent value="ai-recommended" className="space-y-6 mt-6">
-                          <div className="mb-4 p-4 bg-gradient-to-r from-tribal-amber/10 to-primary/10 border border-tribal-amber/20 rounded-lg">
+                          <div className="mb-4 p-4 bg-gradient-to-r from-tribal-amber/5 to-primary/5 border border-tribal-amber/20 rounded-lg">
                             <div className="flex items-center space-x-2 mb-2">
-                              <h3 className="text-lg font-semibold text-foreground">AI-Powered Grant Matching</h3>
+                              <h3 className="text-base font-semibold text-foreground">AI-Powered Matching</h3>
                               <Badge className="bg-tribal-amber/20 text-tribal-amber text-xs border-tribal-amber/40">
                                 Akios AI
                               </Badge>
                             </div>
                             <p className="text-sm text-muted-foreground">
-                              These grants are specifically recommended based on your tribal priorities, past success patterns, and current capacity.
+                              Recommendations based on tribal priorities and success patterns.
                             </p>
                           </div>
                           
-                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                          <div className="akios-grid">
                             {aiSuggestions.map((suggestion, index) => (
                               <GrantDiscoveryCard key={index} {...suggestion} />
                             ))}
@@ -226,84 +216,54 @@ const Index = () => {
                         </TabsContent>
                         
                         <TabsContent value="impact" className="space-y-6 mt-6">
-                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                          <div className="akios-stats-grid mb-6">
                             {impactData.map((dept, index) => (
-                              <Card key={index} className="bg-card/50 backdrop-blur-sm border border-border/30 hover:border-border/50 transition-colors duration-200">
-                                <CardHeader className="pb-3">
+                              <Card key={index} className="akios-card">
+                                <CardHeader className="pb-2">
                                   <CardTitle className="text-sm font-medium text-muted-foreground flex items-center">
                                     <div className={`w-3 h-3 rounded-full ${dept.color} mr-2`} />
                                     {dept.department}
                                   </CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                  <div className="text-2xl font-bold text-foreground mb-1">{dept.amount}</div>
+                                  <div className="text-xl font-bold text-foreground mb-1">{dept.amount}</div>
                                   <p className="text-xs text-muted-foreground">{dept.grants} active grants</p>
                                 </CardContent>
                               </Card>
                             ))}
                           </div>
 
-                          {/* Impact Analytics Tiles */}
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <Card className="bg-gradient-to-br from-green-500/5 to-transparent border border-green-500/20">
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <Card className="akios-card border-green-500/20">
                               <CardHeader className="pb-2">
-                                <CardTitle className="text-base font-semibold text-foreground">Top Funded Department</CardTitle>
+                                <CardTitle className="text-sm font-semibold text-foreground">Top Funded</CardTitle>
                               </CardHeader>
                               <CardContent>
-                                <div className="text-2xl font-bold text-green-400 mb-1">Infrastructure</div>
-                                <p className="text-sm text-muted-foreground">$2.1M awarded this year</p>
+                                <div className="text-lg font-bold text-green-400 mb-1">Infrastructure</div>
+                                <p className="text-xs text-muted-foreground">$2.1M awarded</p>
                               </CardContent>
                             </Card>
 
-                            <Card className="bg-gradient-to-br from-tribal-amber/5 to-transparent border border-tribal-amber/20">
+                            <Card className="akios-card border-tribal-amber/20">
                               <CardHeader className="pb-2">
-                                <CardTitle className="text-base font-semibold text-foreground">Most Active Department</CardTitle>
+                                <CardTitle className="text-sm font-semibold text-foreground">Most Active</CardTitle>
                               </CardHeader>
                               <CardContent>
-                                <div className="text-2xl font-bold text-tribal-amber mb-1">Cultural</div>
-                                <p className="text-sm text-muted-foreground">9 grants submitted</p>
+                                <div className="text-lg font-bold text-tribal-amber mb-1">Cultural</div>
+                                <p className="text-xs text-muted-foreground">9 submissions</p>
                               </CardContent>
                             </Card>
 
-                            <Card className="bg-gradient-to-br from-blue-500/5 to-transparent border border-blue-500/20">
+                            <Card className="akios-card border-blue-500/20">
                               <CardHeader className="pb-2">
-                                <CardTitle className="text-base font-semibold text-foreground">Highest Success Rate</CardTitle>
+                                <CardTitle className="text-sm font-semibold text-foreground">Highest Success</CardTitle>
                               </CardHeader>
                               <CardContent>
-                                <div className="text-2xl font-bold text-blue-400 mb-1">Education</div>
-                                <p className="text-sm text-muted-foreground">82% success rate</p>
+                                <div className="text-lg font-bold text-blue-400 mb-1">Education</div>
+                                <p className="text-xs text-muted-foreground">82% success rate</p>
                               </CardContent>
                             </Card>
                           </div>
-                          
-                          <Card className="bg-gradient-to-br from-primary/5 to-blue-500/5 border border-primary/20">
-                            <CardHeader>
-                              <CardTitle className="text-lg font-semibold text-foreground">Strategic Insights</CardTitle>
-                            </CardHeader>
-                            <CardContent className="space-y-3">
-                              <div className="flex items-start space-x-3">
-                                <div className="w-2 h-2 bg-tribal-amber rounded-full mt-2" />
-                                <div>
-                                  <p className="text-sm font-medium text-foreground">Next Priority Deadline</p>
-                                  <p className="text-xs text-muted-foreground">Educational Technology Grant - 7 days left</p>
-                                </div>
-                              </div>
-                              <div className="flex items-start space-x-3">
-                                <div className="w-2 h-2 bg-green-400 rounded-full mt-2" />
-                                <div>
-                                  <p className="text-sm font-medium text-foreground">High Success Opportunity</p>
-                                  <p className="text-xs text-muted-foreground">Infrastructure grants have 82% success rate this year</p>
-                                </div>
-                              </div>
-                              <div className="flex items-start space-x-3">
-                                <div className="w-2 h-2 bg-blue-400 rounded-full mt-2" />
-                                <div>
-                                  <p className="text-sm font-medium text-foreground">Strategic Timing</p>
-                                  <p className="text-xs text-muted-foreground">Submit applications 2-3 weeks before deadline for higher success rates</p>
-                                </div>
-                              </div>
-                            </CardContent>
-                          </Card>
                         </TabsContent>
                       </Tabs>
                     </div>

@@ -85,22 +85,82 @@
   }
 }
 
-/* Calm animations - only subtle transitions */
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(5px);
+/* System-wide component styles */
+@layer components {
+  /* Standard card styling across all components */
+  .akios-card {
+    @apply bg-card/50 backdrop-blur-sm border border-border/30 rounded-xl;
+    @apply hover:border-border/50 transition-all duration-200;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  
+  /* Standard button styling */
+  .akios-button-primary {
+    @apply bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90;
+    @apply shadow-md hover:shadow-lg transition-all duration-200;
+  }
+  
+  /* Category pill styling - no icons, just colored text */
+  .category-pill {
+    @apply px-3 py-1 rounded-full text-xs font-medium border;
+    @apply transition-colors duration-200;
+  }
+  
+  .category-health {
+    @apply bg-green-500/10 text-green-400 border-green-500/20;
+  }
+  
+  .category-cultural {
+    @apply bg-purple-500/10 text-purple-400 border-purple-500/20;
+  }
+  
+  .category-infrastructure {
+    @apply bg-tribal-amber/10 text-tribal-amber border-tribal-amber/20;
+  }
+  
+  .category-education {
+    @apply bg-blue-500/10 text-blue-400 border-blue-500/20;
+  }
+  
+  .category-environment {
+    @apply bg-emerald-500/10 text-emerald-400 border-emerald-500/20;
+  }
+  
+  .category-economic {
+    @apply bg-orange-500/10 text-orange-400 border-orange-500/20;
+  }
+  
+  /* Navigation item styling */
+  .nav-item {
+    @apply flex items-center space-x-3 p-3 rounded-lg;
+    @apply hover:bg-accent/30 transition-colors duration-200;
+    @apply text-sm font-medium text-foreground;
+  }
+  
+  .nav-item-active {
+    @apply bg-primary/10 text-primary border-l-2 border-primary;
+  }
+  
+  /* Section header styling */
+  .section-header {
+    @apply text-xl font-semibold text-foreground mb-4;
+    @apply flex items-center space-x-2;
+  }
+  
+  /* Grid layouts */
+  .akios-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4;
+  }
+  
+  .akios-stats-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4;
   }
 }
 
-@keyframes slide-up {
+/* Minimal animations - only subtle transitions */
+@keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(3px);
   }
   to {
     opacity: 1;
@@ -109,11 +169,7 @@
 }
 
 .animate-fade-in {
-  animation: fade-in 0.3s ease-out;
-}
-
-.animate-slide-up {
-  animation: slide-up 0.4s ease-out;
+  animation: fade-in 0.2s ease-out;
 }
 
 /* Tribal accent colors */
@@ -139,54 +195,21 @@
 
 /* Enhanced glass morphism utility */
 .glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* Text clipping for gradients */
-.text-gradient {
-  background: linear-gradient(135deg, hsl(var(--foreground)), hsl(var(--primary)));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Subtle hover effects only */
+.hover-glow:hover {
+  box-shadow: 0 0 20px hsl(var(--primary) / 0.1);
 }
 
-/* Subtle visual hierarchy utilities */
-.card-high-priority {
-  border: 1px solid hsl(var(--tribal-amber) / 0.3);
-  box-shadow: 0 4px 20px hsl(var(--tribal-amber) / 0.1);
+/* System icons - smaller and more subtle */
+.system-icon {
+  @apply w-3.5 h-3.5 opacity-60;
 }
 
-.card-high-value {
-  border: 1px solid rgb(234 179 8 / 0.3);
-  box-shadow: 0 4px 16px rgb(234 179 8 / 0.08);
-}
-
-.card-urgent {
-  border: 1px solid rgb(248 113 113 / 0.3);
-  box-shadow: 0 4px 16px rgb(248 113 113 / 0.08);
-}
-
-/* Micro-interaction utilities - subtle only */
-.hover-lift {
-  transition: transform 0.2s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-1px);
-}
-
-.interactive-element {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.interactive-element:hover {
-  transform: scale(1.02);
-}
-
-/* Enhanced tooltip styling */
-.tooltip {
-  @apply px-2 py-1 bg-background/90 backdrop-blur-sm text-xs text-foreground rounded shadow-lg border border-border/30;
-  animation: fade-in 0.2s ease-out;
+.functional-icon {
+  @apply w-4 h-4 opacity-70;
 }
