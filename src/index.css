@@ -85,7 +85,7 @@
   }
 }
 
-/* Enhanced animations */
+/* Enhanced animations with micro-interactions */
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -147,6 +147,35 @@
   }
 }
 
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes gentle-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes subtle-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .animate-fade-in {
   animation: fade-in 0.4s ease-out;
 }
@@ -168,10 +197,26 @@
   animation: gradient-flow 3s ease infinite;
 }
 
-/* Magnetic button effects */
+.animate-sparkle {
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+.animate-gentle-bounce {
+  animation: gentle-bounce 2s ease-in-out infinite;
+}
+
+.animate-subtle-rotate {
+  animation: subtle-rotate 20s linear infinite;
+}
+
+/* Enhanced magnetic button effects with micro-interactions */
 .magnetic-button:hover {
   animation: magnetic-glow 2s ease-in-out infinite;
   transform: translateY(-1px);
+}
+
+.magnetic-button:active {
+  transform: translateY(0px) scale(0.98);
 }
 
 .executive-brief-btn:hover {
@@ -199,7 +244,7 @@
   border-color: hsl(var(--tribal-amber));
 }
 
-/* Glass morphism utility */
+/* Enhanced glass morphism utility */
 .glass {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
@@ -214,10 +259,11 @@
   background-clip: text;
 }
 
-/* Enhanced visual hierarchy utilities */
+/* Enhanced visual hierarchy utilities with animations */
 .card-high-priority {
   border: 1px solid hsl(var(--tribal-amber) / 0.6);
   box-shadow: 0 10px 40px hsl(var(--tribal-amber) / 0.2);
+  animation: glow-pulse 3s ease-in-out infinite;
 }
 
 .card-high-value {
@@ -229,4 +275,48 @@
   border: 1px solid rgb(248 113 113 / 0.4);
   box-shadow: 0 8px 32px rgb(248 113 113 / 0.1);
   animation: pulse 2s infinite;
+}
+
+/* Micro-interaction utilities */
+.hover-lift {
+  transition: transform 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.interactive-element {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.interactive-element:hover {
+  transform: scale(1.05);
+}
+
+.interactive-element:active {
+  transform: scale(0.95);
+}
+
+/* Enhanced tooltip styling */
+.tooltip {
+  @apply px-2 py-1 bg-background/90 backdrop-blur-sm text-xs text-foreground rounded shadow-lg border border-border/30;
+  animation: fade-in 0.2s ease-out;
+}
+
+/* Tribal-inspired accent animations */
+.tribal-accent {
+  position: relative;
+}
+
+.tribal-accent::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 40%, hsl(var(--tribal-amber) / 0.1) 50%, transparent 60%);
+  animation: sparkle 3s ease-in-out infinite;
+  pointer-events: none;
 }

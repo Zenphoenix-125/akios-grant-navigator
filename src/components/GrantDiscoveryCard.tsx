@@ -17,6 +17,15 @@ interface GrantDiscoveryCardProps {
   daysLeft: number;
 }
 
+const categoryIcons = {
+  "Health": "🏥",
+  "Cultural": "🪶", 
+  "Infrastructure": "🛠️",
+  "Education": "🧑‍🏫",
+  "Environment": "🌱",
+  "Economic": "💼"
+};
+
 export function GrantDiscoveryCard({
   title,
   agency,
@@ -65,22 +74,24 @@ export function GrantDiscoveryCard({
   const isHighPriority = matchScore >= 90 && (isHighValue || isUrgent);
 
   const getCardClasses = () => {
-    let baseClasses = "relative bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-xl border transition-all duration-500 hover:shadow-2xl animate-fade-in group overflow-hidden";
+    let baseClasses = "relative bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-xl border transition-all duration-500 hover:shadow-2xl animate-fade-in group overflow-hidden hover:scale-[1.02] active:scale-[0.98]";
     
     if (isHighPriority) {
-      return `${baseClasses} border-tribal-amber/60 hover:border-tribal-amber shadow-tribal-amber/20 hover:shadow-tribal-amber/30 ring-1 ring-tribal-amber/20`;
+      return `${baseClasses} border-tribal-amber/60 hover:border-tribal-amber shadow-tribal-amber/20 hover:shadow-tribal-amber/30 ring-1 ring-tribal-amber/20 hover:ring-2`;
     } else if (isHighValue) {
       return `${baseClasses} border-yellow-500/40 hover:border-yellow-500/60 shadow-yellow-500/10 hover:shadow-yellow-500/20`;
     } else if (isUrgent) {
-      return `${baseClasses} border-red-400/40 hover:border-red-400/60 shadow-red-400/10 hover:shadow-red-400/20 animate-pulse`;
+      return `${baseClasses} border-red-400/40 hover:border-red-400/60 shadow-red-400/10 hover:shadow-red-400/20 hover:animate-pulse`;
     } else {
       return `${baseClasses} border-border/30 hover:border-primary/40 hover:shadow-primary/20`;
     }
   };
 
+  const categoryIcon = categoryIcons[category as keyof typeof categoryIcons] || "📋";
+
   return (
     <Card className={getCardClasses()}>
-      {/* Priority overlay glow */}
+      {/* Priority overlay glow with enhanced animation */}
       <div className={`absolute inset-0 transition-opacity duration-500 ${
         isHighPriority ? 'bg-gradient-to-br from-tribal-amber/8 to-transparent opacity-100' :
         isHighValue ? 'bg-gradient-to-br from-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100' :
@@ -88,11 +99,18 @@ export function GrantDiscoveryCard({
         'bg-gradient-to-br from-primary/3 to-transparent opacity-0 group-hover:opacity-100'
       }`} />
       
+      {/* Subtle sparkle animation for high priority grants */}
+      {isHighPriority && (
+        <div className="absolute top-4 right-4 animate-pulse">
+          <div className="w-2 h-2 bg-tribal-amber rounded-full animate-ping" />
+        </div>
+      )}
+      
       <CardHeader className="pb-4 relative z-10">
         <div className="flex items-start justify-between">
           <div className="flex-1 min-w-0 pr-4">
             {isHighPriority && (
-              <Badge className="mb-2 bg-tribal-amber/20 text-tribal-amber border-tribal-amber/40 animate-pulse">
+              <Badge className="mb-2 bg-tribal-amber/20 text-tribal-amber border-tribal-amber/40 animate-pulse group-hover:animate-bounce">
                 <Zap className="w-3 h-3 mr-1" />
                 Featured Grant
               </Badge>
@@ -110,16 +128,23 @@ export function GrantDiscoveryCard({
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 hover:bg-primary/20"
+              className="h-8 w-8 hover:bg-primary/20 hover:scale-110 transition-all duration-300"
               onClick={() => setIsBookmarked(!isBookmarked)}
             >
-              <Heart className={`w-4 h-4 transition-colors ${isBookmarked ? 'fill-red-500 text-red-500' : 'text-muted-foreground hover:text-red-400'}`} />
+              <Heart className={`w-4 h-4 transition-all duration-300 ${
+                isBookmarked ? 'fill-red-500 text-red-500 animate-pulse' : 'text-muted-foreground hover:text-red-400 hover:scale-110'
+              }`} />
             </Button>
-            <Badge variant="outline" className="border-tribal-amber/40 text-tribal-amber bg-tribal-amber/10">
+            <Badge 
+              variant="outline" 
+              className="border-tribal-amber/40 text-tribal-amber bg-tribal-amber/10 hover:bg-tribal-amber/20 hover:scale-105 transition-all duration-300 cursor-pointer"
+              title={`${category} grants`}
+            >
+              <span className="mr-1 group-hover:animate-bounce">{categoryIcon}</span>
               {category}
             </Badge>
             {matchRequired && (
-              <Badge variant="secondary" className="text-xs bg-secondary/60">
+              <Badge variant="secondary" className="text-xs bg-secondary/60 hover:bg-secondary/80 transition-colors">
                 Match Required
               </Badge>
             )}
@@ -130,7 +155,7 @@ export function GrantDiscoveryCard({
       <CardContent className="space-y-5 relative z-10">
         <div className="grid grid-cols-2 gap-4">
           <div className="flex items-center space-x-2">
-            <DollarSign className={`w-4 h-4 ${isHighValue ? 'text-tribal-amber' : 'text-green-400'}`} />
+            <DollarSign className={`w-4 h-4 ${isHighValue ? 'text-tribal-amber animate-pulse' : 'text-green-400'}`} />
             <span className={`text-sm font-semibold ${isHighValue ? 'text-tribal-amber' : 'text-foreground'}`}>
               {amount}
             </span>
@@ -151,7 +176,7 @@ export function GrantDiscoveryCard({
               <span className={`text-sm font-bold ${getMatchScoreColor(matchScore)}`}>
                 {matchScore}%
               </span>
-              <Badge className={`text-xs px-2 py-0.5 ${
+              <Badge className={`text-xs px-2 py-0.5 hover:scale-105 transition-transform duration-200 ${
                 matchScore >= 90 ? 'bg-green-500/20 text-green-400' :
                 matchScore >= 70 ? 'bg-tribal-amber/20 text-tribal-amber' :
                 'bg-red-500/20 text-red-400'
@@ -163,7 +188,9 @@ export function GrantDiscoveryCard({
           <div className="relative">
             <Progress value={matchScore} className="h-3 bg-secondary/30" />
             <div 
-              className={`absolute top-0 left-0 h-3 rounded-full transition-all duration-700 group-hover:animate-pulse ${getMatchScoreBarColor(matchScore)}`}
+              className={`absolute top-0 left-0 h-3 rounded-full transition-all duration-700 ${
+                matchScore >= 90 ? 'animate-pulse' : ''
+              } ${getMatchScoreBarColor(matchScore)}`}
               style={{ width: `${matchScore}%` }}
             />
           </div>
@@ -178,13 +205,18 @@ export function GrantDiscoveryCard({
           </div>
           <Button 
             size="sm" 
-            className="bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 shadow-lg hover:shadow-primary/40 transition-all duration-300 hover:scale-105 group/btn relative overflow-hidden magnetic-button"
-            title="Use FastFill AI to apply instantly"
+            className="bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 shadow-lg hover:shadow-primary/40 transition-all duration-300 hover:scale-105 active:scale-95 group/btn relative overflow-hidden magnetic-button"
+            title="Use Akios FastFill AI to apply instantly"
           >
-            {/* Magnetic glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-blue-400/20 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300 animate-pulse" />
-            <span className="mr-2 relative z-10">Apply Now</span>
-            <ExternalLink className="w-3 h-3 group-hover/btn:translate-x-0.5 transition-transform relative z-10" />
+            {/* Enhanced magnetic glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 to-blue-400/30 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300 animate-pulse" />
+            <span className="mr-2 relative z-10 group-hover/btn:animate-pulse">Apply Now</span>
+            <ExternalLink className="w-3 h-3 group-hover/btn:translate-x-0.5 group-hover/btn:scale-110 transition-transform relative z-10" />
+            
+            {/* Tooltip on hover */}
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-background/90 backdrop-blur-sm text-xs text-foreground rounded opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+              Use Akios FastFill AI
+            </div>
           </Button>
         </div>
       </CardContent>
