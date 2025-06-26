@@ -6,7 +6,7 @@ import { GrantFilters } from "@/components/GrantFilters";
 import { GrantDiscoveryCard } from "@/components/GrantDiscoveryCard";
 import { ApplicationTracker } from "@/components/ApplicationTracker";
 import { Button } from "@/components/ui/button";
-import { Plus, Bell, Settings, FileDown, Calendar, Lightbulb, Sparkles } from "lucide-react";
+import { Plus, Bell, Settings, FileDown, Calendar, Sparkles } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -85,10 +85,10 @@ const aiSuggestions = [
 ];
 
 const impactData = [
-  { department: "Health", amount: "$1.2M", grants: 4, color: "bg-green-500" },
-  { department: "Education", amount: "$890K", grants: 3, color: "bg-blue-500" },
-  { department: "Infrastructure", amount: "$2.1M", grants: 2, color: "bg-tribal-amber" },
-  { department: "Cultural", amount: "$450K", grants: 5, color: "bg-purple-500" }
+  { department: "Health", amount: "$1.2M", grants: 4, submissions: 8, successRate: "75%", color: "bg-green-500" },
+  { department: "Education", amount: "$890K", grants: 3, submissions: 5, successRate: "82%", color: "bg-blue-500" },
+  { department: "Infrastructure", amount: "$2.1M", grants: 2, submissions: 4, successRate: "68%", color: "bg-tribal-amber" },
+  { department: "Cultural", amount: "$450K", grants: 5, submissions: 9, successRate: "71%", color: "bg-purple-500" }
 ];
 
 const Index = () => {
@@ -128,21 +128,21 @@ const Index = () => {
                       className="bg-background/60 backdrop-blur-sm border-border/40 hover:border-tribal-amber/40 hover:bg-tribal-amber/5 transition-all duration-200"
                       title="Generate executive summary report"
                     >
-                      <FileDown className="w-4 h-4 mr-2" />
+                      <FileDown className="w-3.5 h-3.5 mr-2 opacity-60" />
                       Executive Brief PDF
                     </Button>
                     <Button size="sm" className="bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 shadow-md hover:shadow-lg transition-all duration-200">
-                      <Plus className="w-4 h-4 mr-2" />
+                      <Plus className="w-3.5 h-3.5 mr-2" />
                       New Application
                     </Button>
                     <Button variant="ghost" size="icon" className="hover:bg-primary/10 transition-colors duration-200">
-                      <Calendar className="w-4 h-4" />
+                      <Calendar className="w-3.5 h-3.5 opacity-60" />
                     </Button>
                     <Button variant="ghost" size="icon" className="hover:bg-primary/10 transition-colors duration-200">
-                      <Bell className="w-4 h-4" />
+                      <Bell className="w-3.5 h-3.5 opacity-60" />
                     </Button>
                     <Button variant="ghost" size="icon" className="hover:bg-primary/10 transition-colors duration-200">
-                      <Settings className="w-4 h-4" />
+                      <Settings className="w-3.5 h-3.5 opacity-60" />
                     </Button>
                   </div>
                 </div>
@@ -150,10 +150,10 @@ const Index = () => {
 
               {/* Main Content */}
               <div className="flex-1 overflow-auto">
-                <div className="max-w-7xl mx-auto p-8 space-y-10">
+                <div className="max-w-7xl mx-auto p-8 space-y-8">
                   {/* Performance Dashboard */}
                   <section>
-                    <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center">
+                    <h2 className="text-2xl font-semibold text-foreground mb-6 flex items-center">
                       Performance Overview
                       <div className="ml-3 w-2 h-2 bg-green-400 rounded-full" />
                     </h2>
@@ -163,7 +163,7 @@ const Index = () => {
                   {/* Grant Discovery with Tabs */}
                   <section>
                     <div className="flex items-center justify-between mb-6">
-                      <h2 className="text-2xl font-bold text-foreground">
+                      <h2 className="text-2xl font-semibold text-foreground">
                         Grant Opportunities
                       </h2>
                       <div className="text-sm text-muted-foreground bg-background/60 backdrop-blur-sm px-4 py-2 rounded-full border border-border/20">
@@ -175,15 +175,24 @@ const Index = () => {
                       <GrantFilters />
                       
                       <Tabs defaultValue="all" className="w-full">
-                        <TabsList className="grid w-full grid-cols-3 bg-background/50 backdrop-blur-sm border border-border/20">
-                          <TabsTrigger value="all" className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary">
-                            All Grants ({mockGrants.length})
+                        <TabsList className="h-12 bg-background/50 backdrop-blur-sm border border-border/20 p-1">
+                          <TabsTrigger 
+                            value="all" 
+                            className="text-base font-semibold data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6"
+                          >
+                            All Grants
                           </TabsTrigger>
-                          <TabsTrigger value="ai-recommended" className="data-[state=active]:bg-tribal-amber/10 data-[state=active]:text-tribal-amber">
-                            <Sparkles className="w-4 h-4 mr-2" />
-                            AI Recommended ({aiSuggestions.length})
+                          <TabsTrigger 
+                            value="ai-recommended" 
+                            className="text-base font-semibold data-[state=active]:bg-tribal-amber/10 data-[state=active]:text-tribal-amber data-[state=active]:border-b-2 data-[state=active]:border-tribal-amber rounded-none px-6"
+                          >
+                            <Sparkles className="w-3.5 h-3.5 mr-2 opacity-70" />
+                            AI Recommended
                           </TabsTrigger>
-                          <TabsTrigger value="impact" className="data-[state=active]:bg-green-500/10 data-[state=active]:text-green-400">
+                          <TabsTrigger 
+                            value="impact" 
+                            className="text-base font-semibold data-[state=active]:bg-green-500/10 data-[state=active]:text-green-400 data-[state=active]:border-b-2 data-[state=active]:border-green-400 rounded-none px-6"
+                          >
                             Impact Dashboard
                           </TabsTrigger>
                         </TabsList>
@@ -199,7 +208,6 @@ const Index = () => {
                         <TabsContent value="ai-recommended" className="space-y-6 mt-6">
                           <div className="mb-4 p-4 bg-gradient-to-r from-tribal-amber/10 to-primary/10 border border-tribal-amber/20 rounded-lg">
                             <div className="flex items-center space-x-2 mb-2">
-                              <Lightbulb className="w-5 h-5 text-tribal-amber" />
                               <h3 className="text-lg font-semibold text-foreground">AI-Powered Grant Matching</h3>
                               <Badge className="bg-tribal-amber/20 text-tribal-amber text-xs border-tribal-amber/40">
                                 Akios AI
@@ -218,7 +226,7 @@ const Index = () => {
                         </TabsContent>
                         
                         <TabsContent value="impact" className="space-y-6 mt-6">
-                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                             {impactData.map((dept, index) => (
                               <Card key={index} className="bg-card/50 backdrop-blur-sm border border-border/30 hover:border-border/50 transition-colors duration-200">
                                 <CardHeader className="pb-3">
@@ -234,10 +242,43 @@ const Index = () => {
                               </Card>
                             ))}
                           </div>
+
+                          {/* Impact Analytics Tiles */}
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <Card className="bg-gradient-to-br from-green-500/5 to-transparent border border-green-500/20">
+                              <CardHeader className="pb-2">
+                                <CardTitle className="text-base font-semibold text-foreground">Top Funded Department</CardTitle>
+                              </CardHeader>
+                              <CardContent>
+                                <div className="text-2xl font-bold text-green-400 mb-1">Infrastructure</div>
+                                <p className="text-sm text-muted-foreground">$2.1M awarded this year</p>
+                              </CardContent>
+                            </Card>
+
+                            <Card className="bg-gradient-to-br from-tribal-amber/5 to-transparent border border-tribal-amber/20">
+                              <CardHeader className="pb-2">
+                                <CardTitle className="text-base font-semibold text-foreground">Most Active Department</CardTitle>
+                              </CardHeader>
+                              <CardContent>
+                                <div className="text-2xl font-bold text-tribal-amber mb-1">Cultural</div>
+                                <p className="text-sm text-muted-foreground">9 grants submitted</p>
+                              </CardContent>
+                            </Card>
+
+                            <Card className="bg-gradient-to-br from-blue-500/5 to-transparent border border-blue-500/20">
+                              <CardHeader className="pb-2">
+                                <CardTitle className="text-base font-semibold text-foreground">Highest Success Rate</CardTitle>
+                              </CardHeader>
+                              <CardContent>
+                                <div className="text-2xl font-bold text-blue-400 mb-1">Education</div>
+                                <p className="text-sm text-muted-foreground">82% success rate</p>
+                              </CardContent>
+                            </Card>
+                          </div>
                           
                           <Card className="bg-gradient-to-br from-primary/5 to-blue-500/5 border border-primary/20">
                             <CardHeader>
-                              <CardTitle className="text-lg font-semibold text-foreground">Quick Tips</CardTitle>
+                              <CardTitle className="text-lg font-semibold text-foreground">Strategic Insights</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-3">
                               <div className="flex items-start space-x-3">
@@ -250,14 +291,14 @@ const Index = () => {
                               <div className="flex items-start space-x-3">
                                 <div className="w-2 h-2 bg-green-400 rounded-full mt-2" />
                                 <div>
-                                  <p className="text-sm font-medium text-foreground">High Success Rate</p>
+                                  <p className="text-sm font-medium text-foreground">High Success Opportunity</p>
                                   <p className="text-xs text-muted-foreground">Infrastructure grants have 82% success rate this year</p>
                                 </div>
                               </div>
                               <div className="flex items-start space-x-3">
                                 <div className="w-2 h-2 bg-blue-400 rounded-full mt-2" />
                                 <div>
-                                  <p className="text-sm font-medium text-foreground">Pro Tip</p>
+                                  <p className="text-sm font-medium text-foreground">Strategic Timing</p>
                                   <p className="text-xs text-muted-foreground">Submit applications 2-3 weeks before deadline for higher success rates</p>
                                 </div>
                               </div>

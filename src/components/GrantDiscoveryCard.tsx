@@ -1,4 +1,3 @@
-
 import { Calendar, DollarSign, Target, Clock, Heart, ExternalLink, Zap } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -73,12 +72,12 @@ export function GrantDiscoveryCard({
   const isHighPriority = matchScore >= 90 && (isHighValue || isUrgent);
 
   const getCardClasses = () => {
-    let baseClasses = "relative bg-card/60 backdrop-blur-sm border rounded-xl transition-all duration-300 hover:shadow-lg group overflow-hidden hover:bg-card/80";
+    let baseClasses = "relative bg-card/60 backdrop-blur-sm border rounded-xl transition-all duration-200 hover:shadow-lg group overflow-hidden hover:bg-card/80";
     
     if (isHighPriority) {
-      return `${baseClasses} border-tribal-amber/40 hover:border-tribal-amber/60 shadow-tribal-amber/10 hover:shadow-tribal-amber/20`;
+      return `${baseClasses} border-tribal-amber/40 hover:border-tribal-amber/60 shadow-tribal-amber/5 hover:shadow-tribal-amber/10`;
     } else if (isHighValue) {
-      return `${baseClasses} border-yellow-500/30 hover:border-yellow-500/50 shadow-yellow-500/5 hover:shadow-yellow-500/15`;
+      return `${baseClasses} border-yellow-500/30 hover:border-yellow-500/50 shadow-yellow-500/3 hover:shadow-yellow-500/8`;
     } else if (isUrgent) {
       return `${baseClasses} border-red-400/30 hover:border-red-400/50`;
     } else {
@@ -91,11 +90,11 @@ export function GrantDiscoveryCard({
   return (
     <Card className={getCardClasses()}>
       {/* Subtle priority overlay */}
-      <div className={`absolute inset-0 transition-opacity duration-300 ${
-        isHighPriority ? 'bg-gradient-to-br from-tribal-amber/5 to-transparent opacity-60' :
-        isHighValue ? 'bg-gradient-to-br from-yellow-500/3 to-transparent opacity-0 group-hover:opacity-100' :
-        isUrgent ? 'bg-gradient-to-br from-red-400/3 to-transparent opacity-0 group-hover:opacity-100' :
-        'bg-gradient-to-br from-primary/2 to-transparent opacity-0 group-hover:opacity-100'
+      <div className={`absolute inset-0 transition-opacity duration-200 ${
+        isHighPriority ? 'bg-gradient-to-br from-tribal-amber/3 to-transparent opacity-60' :
+        isHighValue ? 'bg-gradient-to-br from-yellow-500/2 to-transparent opacity-0 group-hover:opacity-100' :
+        isUrgent ? 'bg-gradient-to-br from-red-400/2 to-transparent opacity-0 group-hover:opacity-100' :
+        'bg-gradient-to-br from-primary/1 to-transparent opacity-0 group-hover:opacity-100'
       }`} />
       
       <CardHeader className="pb-4 relative z-10">
@@ -103,7 +102,7 @@ export function GrantDiscoveryCard({
           <div className="flex-1 min-w-0 pr-4">
             {isHighPriority && (
               <Badge className="mb-3 bg-tribal-amber/15 text-tribal-amber border-tribal-amber/30">
-                <Zap className="w-3 h-3 mr-1" />
+                <Zap className="w-2.5 h-2.5 mr-1" />
                 Featured Grant
               </Badge>
             )}
@@ -123,7 +122,7 @@ export function GrantDiscoveryCard({
               className="h-8 w-8 hover:bg-primary/10 transition-colors duration-200"
               onClick={() => setIsBookmarked(!isBookmarked)}
             >
-              <Heart className={`w-4 h-4 transition-colors duration-200 ${
+              <Heart className={`w-3 h-3 transition-colors duration-200 ${
                 isBookmarked ? 'fill-red-500 text-red-500' : 'text-muted-foreground hover:text-red-400'
               }`} />
             </Button>
@@ -131,7 +130,7 @@ export function GrantDiscoveryCard({
               variant="outline" 
               className="border-tribal-amber/30 text-tribal-amber bg-tribal-amber/8 hover:bg-tribal-amber/15 transition-colors duration-200"
             >
-              <span className="mr-1">{categoryIcon}</span>
+              <span className="mr-1 text-xs">{categoryIcon}</span>
               {category}
             </Badge>
             {matchRequired && (
@@ -146,13 +145,13 @@ export function GrantDiscoveryCard({
       <CardContent className="space-y-4 relative z-10">
         <div className="grid grid-cols-2 gap-4">
           <div className="flex items-center space-x-2">
-            <DollarSign className={`w-4 h-4 ${isHighValue ? 'text-tribal-amber' : 'text-green-400'}`} />
+            <DollarSign className={`w-3.5 h-3.5 opacity-70 ${isHighValue ? 'text-tribal-amber' : 'text-green-400'}`} />
             <span className={`text-sm font-semibold ${isHighValue ? 'text-tribal-amber' : 'text-foreground'}`}>
               {amount}
             </span>
           </div>
           <div className="flex items-center space-x-2">
-            <Calendar className="w-4 h-4 text-muted-foreground" />
+            <Calendar className="w-3.5 h-3.5 text-muted-foreground opacity-70" />
             <span className="text-sm text-muted-foreground">{deadline}</span>
           </div>
         </div>
@@ -160,7 +159,7 @@ export function GrantDiscoveryCard({
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <Target className="w-4 h-4 text-primary" />
+              <Target className="w-3.5 h-3.5 text-primary opacity-70" />
               <span className="text-sm text-muted-foreground">Match Score</span>
             </div>
             <div className="flex items-center space-x-2">
@@ -179,7 +178,7 @@ export function GrantDiscoveryCard({
           <div className="relative">
             <Progress value={matchScore} className="h-2 bg-secondary/20" />
             <div 
-              className={`absolute top-0 left-0 h-2 rounded-full transition-all duration-500 ${getMatchScoreBarColor(matchScore)}`}
+              className={`absolute top-0 left-0 h-2 rounded-full transition-all duration-300 ${getMatchScoreBarColor(matchScore)}`}
               style={{ width: `${matchScore}%` }}
             />
           </div>
@@ -187,7 +186,7 @@ export function GrantDiscoveryCard({
 
         <div className="flex items-center justify-between pt-3 border-t border-border/20">
           <div className="flex items-center space-x-2">
-            <Clock className={`w-4 h-4 ${getUrgencyColor(daysLeft)}`} />
+            <Clock className={`w-3.5 h-3.5 opacity-70 ${getUrgencyColor(daysLeft)}`} />
             <span className={`text-sm font-medium ${getUrgencyColor(daysLeft)}`}>
               {daysLeft} days left
             </span>

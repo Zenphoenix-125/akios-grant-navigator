@@ -1,4 +1,3 @@
-
 import { TrendingUp, DollarSign, FileText, Award } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -65,7 +64,7 @@ function MiniSparkline({ data }: { data: number[] }) {
   }).join(' ');
 
   return (
-    <svg width="60" height="20" className="opacity-50 group-hover:opacity-80 transition-opacity duration-200">
+    <svg width="60" height="20" className="opacity-40 group-hover:opacity-70 transition-opacity duration-200">
       <polyline
         points={points}
         fill="none"
@@ -87,24 +86,24 @@ export function PerformanceDashboard() {
           title={stat.clickAction}
         >
           {/* Subtle background glow */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/2 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
           
           {/* Tribal pattern overlay */}
-          <div className="absolute top-3 right-3 text-3xl opacity-[0.04] group-hover:opacity-[0.08] transition-opacity duration-200">
+          <div className="absolute top-3 right-3 text-2xl opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-200">
             {stat.tribalIcon}
           </div>
           
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 relative z-10">
             <div className="flex items-center space-x-3">
               <div className="flex items-center space-x-2">
-                <span className="text-xl group-hover:scale-105 transition-transform duration-200">{stat.tribalIcon}</span>
-                <span className="text-base opacity-60 group-hover:opacity-100 transition-opacity">{stat.emoji}</span>
+                <span className="text-lg group-hover:scale-105 transition-transform duration-200">{stat.tribalIcon}</span>
+                <span className="text-sm opacity-50 group-hover:opacity-80 transition-opacity">{stat.emoji}</span>
               </div>
               <CardTitle className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
                 {stat.title}
               </CardTitle>
             </div>
-            <stat.icon className="h-5 w-5 text-primary/50 group-hover:text-primary transition-colors duration-200" />
+            <stat.icon className="h-4 w-4 text-primary/40 group-hover:text-primary/60 transition-colors duration-200" />
           </CardHeader>
           
           <CardContent className="relative z-10">
@@ -129,7 +128,7 @@ export function PerformanceDashboard() {
           </CardContent>
           
           {/* Click hint */}
-          <div className="absolute bottom-2 right-2 text-xs text-primary/30 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+          <div className="absolute bottom-2 right-2 text-xs text-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
             Click to explore →
           </div>
         </Card>
