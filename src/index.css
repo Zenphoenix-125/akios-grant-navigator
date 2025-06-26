@@ -99,7 +99,7 @@
     @apply shadow-md hover:shadow-lg transition-all duration-200;
   }
   
-  /* Category pill styling - no icons, just colored text */
+  /* Category pill styling - using proper Tailwind tribal color classes */
   .category-pill {
     @apply px-3 py-1 rounded-full text-xs font-medium border;
     @apply transition-colors duration-200;
@@ -114,7 +114,7 @@
   }
   
   .category-infrastructure {
-    @apply bg-tribal-amber/10 text-tribal-amber border-tribal-amber/20;
+    @apply bg-tribal-amber-100 text-tribal-amber border-tribal-amber-200;
   }
   
   .category-education {
@@ -154,6 +154,32 @@
   .akios-stats-grid {
     @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4;
   }
+
+  /* Unified layout system */
+  .akios-layout {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .akios-section {
+    @apply space-y-6 mb-8;
+  }
+
+  .akios-section-title {
+    @apply text-2xl font-bold text-foreground mb-6;
+  }
+
+  /* Consistent spacing */
+  .akios-spacing-sm {
+    @apply space-y-3;
+  }
+  
+  .akios-spacing-md {
+    @apply space-y-4;
+  }
+  
+  .akios-spacing-lg {
+    @apply space-y-6;
+  }
 }
 
 /* Minimal animations - only subtle transitions */
@@ -170,27 +196,6 @@
 
 .animate-fade-in {
   animation: fade-in 0.2s ease-out;
-}
-
-/* Tribal accent colors */
-.text-tribal-amber {
-  color: hsl(var(--tribal-amber));
-}
-
-.bg-tribal-amber {
-  background-color: hsl(var(--tribal-amber));
-}
-
-.text-tribal-copper {
-  color: hsl(var(--tribal-copper));
-}
-
-.bg-tribal-copper {
-  background-color: hsl(var(--tribal-copper));
-}
-
-.border-tribal-amber {
-  border-color: hsl(var(--tribal-amber));
 }
 
 /* Enhanced glass morphism utility */

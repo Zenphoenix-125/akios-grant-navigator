@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,45 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				'tribal-amber': {
+					DEFAULT: 'hsl(var(--tribal-amber))',
+					50: 'hsl(var(--tribal-amber) / 0.05)',
+					100: 'hsl(var(--tribal-amber) / 0.1)',
+					200: 'hsl(var(--tribal-amber) / 0.2)',
+					300: 'hsl(var(--tribal-amber) / 0.3)',
+					400: 'hsl(var(--tribal-amber) / 0.4)',
+					500: 'hsl(var(--tribal-amber) / 0.5)',
+					600: 'hsl(var(--tribal-amber) / 0.6)',
+					700: 'hsl(var(--tribal-amber) / 0.7)',
+					800: 'hsl(var(--tribal-amber) / 0.8)',
+					900: 'hsl(var(--tribal-amber) / 0.9)'
+				},
+				'tribal-copper': {
+					DEFAULT: 'hsl(var(--tribal-copper))',
+					50: 'hsl(var(--tribal-copper) / 0.05)',
+					100: 'hsl(var(--tribal-copper) / 0.1)',
+					200: 'hsl(var(--tribal-copper) / 0.2)',
+					300: 'hsl(var(--tribal-copper) / 0.3)',
+					400: 'hsl(var(--tribal-copper) / 0.4)',
+					500: 'hsl(var(--tribal-copper) / 0.5)',
+					600: 'hsl(var(--tribal-copper) / 0.6)',
+					700: 'hsl(var(--tribal-copper) / 0.7)',
+					800: 'hsl(var(--tribal-copper) / 0.8)',
+					900: 'hsl(var(--tribal-copper) / 0.9)'
+				},
+				'tribal-sage': {
+					DEFAULT: 'hsl(var(--tribal-sage))',
+					50: 'hsl(var(--tribal-sage) / 0.05)',
+					100: 'hsl(var(--tribal-sage) / 0.1)',
+					200: 'hsl(var(--tribal-sage) / 0.2)',
+					300: 'hsl(var(--tribal-sage) / 0.3)',
+					400: 'hsl(var(--tribal-sage) / 0.4)',
+					500: 'hsl(var(--tribal-sage) / 0.5)',
+					600: 'hsl(var(--tribal-sage) / 0.6)',
+					700: 'hsl(var(--tribal-sage) / 0.7)',
+					800: 'hsl(var(--tribal-sage) / 0.8)',
+					900: 'hsl(var(--tribal-sage) / 0.9)'
 				}
 			},
 			borderRadius: {
