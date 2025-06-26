@@ -126,6 +126,27 @@
   }
 }
 
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes magnetic-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.5), 0 0 40px rgba(59, 130, 246, 0.3);
+  }
+}
+
 .animate-fade-in {
   animation: fade-in 0.4s ease-out;
 }
@@ -140,6 +161,21 @@
 
 .animate-float {
   animation: float 3s ease-in-out infinite;
+}
+
+.animate-gradient-flow {
+  background-size: 200% 200%;
+  animation: gradient-flow 3s ease infinite;
+}
+
+/* Magnetic button effects */
+.magnetic-button:hover {
+  animation: magnetic-glow 2s ease-in-out infinite;
+  transform: translateY(-1px);
+}
+
+.executive-brief-btn:hover {
+  box-shadow: 0 4px 20px rgba(251, 191, 36, 0.3);
 }
 
 /* Tribal accent colors */
@@ -176,4 +212,21 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Enhanced visual hierarchy utilities */
+.card-high-priority {
+  border: 1px solid hsl(var(--tribal-amber) / 0.6);
+  box-shadow: 0 10px 40px hsl(var(--tribal-amber) / 0.2);
+}
+
+.card-high-value {
+  border: 1px solid rgb(234 179 8 / 0.4);
+  box-shadow: 0 8px 32px rgb(234 179 8 / 0.1);
+}
+
+.card-urgent {
+  border: 1px solid rgb(248 113 113 / 0.4);
+  box-shadow: 0 8px 32px rgb(248 113 113 / 0.1);
+  animation: pulse 2s infinite;
 }

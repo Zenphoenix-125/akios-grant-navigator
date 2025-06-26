@@ -1,5 +1,5 @@
 
-import { Calendar, User, CheckCircle, Clock, AlertCircle, ExternalLink } from "lucide-react";
+import { Calendar, User, CheckCircle, Clock, AlertCircle, ExternalLink, Edit, Send, FileCheck } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
@@ -17,7 +17,9 @@ const applications = [
     assignee: "Sarah Johnson",
     assigneeInitials: "SJ",
     amount: "$500,000",
-    daysLeft: 12
+    daysLeft: 12,
+    department: "Health",
+    departmentColor: "bg-green-500/20 text-green-400"
   },
   {
     id: 2,
@@ -29,7 +31,9 @@ const applications = [
     assignee: "Michael Bear",
     assigneeInitials: "MB",
     amount: "$125,000",
-    daysLeft: 28
+    daysLeft: 28,
+    department: "Education",
+    departmentColor: "bg-blue-500/20 text-blue-400"
   },
   {
     id: 3,
@@ -41,7 +45,9 @@ const applications = [
     assignee: "Lisa White Eagle",
     assigneeInitials: "LW",
     amount: "$750,000",
-    daysLeft: 5
+    daysLeft: 5,
+    department: "Infrastructure",
+    departmentColor: "bg-purple-500/20 text-purple-400"
   }
 ];
 
@@ -50,32 +56,37 @@ const getStatusConfig = (status: string) => {
     case "Submitted": 
       return {
         color: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-        emoji: "🔵",
-        icon: CheckCircle
+        emoji: "📨",
+        icon: Send,
+        microIcon: "📨"
       };
     case "In Review": 
       return {
         color: "bg-tribal-amber/20 text-tribal-amber border-tribal-amber/30",
-        emoji: "🟡",
-        icon: Clock
+        emoji: "🕒",
+        icon: Clock,
+        microIcon: "🕒"
       };
     case "Draft": 
       return {
         color: "bg-purple-500/20 text-purple-400 border-purple-500/30",
-        emoji: "🟣",
-        icon: AlertCircle
+        emoji: "✍️",
+        icon: Edit,
+        microIcon: "✍️"
       };
     case "Awarded": 
       return {
         color: "bg-green-500/20 text-green-400 border-green-500/30",
-        emoji: "🟢",
-        icon: CheckCircle
+        emoji: "🏆",
+        icon: CheckCircle,
+        microIcon: "🏆"
       };
     default: 
       return {
         color: "bg-gray-500/20 text-gray-400 border-gray-500/30",
         emoji: "⚪",
-        icon: Clock
+        icon: Clock,
+        microIcon: "⚪"
       };
   }
 };
@@ -94,13 +105,19 @@ export function ApplicationTracker() {
         {applications.map((app) => {
           const statusConfig = getStatusConfig(app.status);
           return (
-            <Card key={app.id} className="relative bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-xl border border-border/30 hover:border-primary/40 transition-all duration-500 hover:shadow-xl hover:shadow-primary/10 animate-fade-in group overflow-hidden">
+            <Card key={app.id} className="relative bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-xl border border-border/30 hover:border-primary/40 transition-all duration-500 hover:shadow-xl hover:shadow-primary/10 animate-fade-in group overflow-hidden cursor-pointer">
               {/* Background glow */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
               <CardHeader className="pb-4 relative z-10">
                 <div className="flex items-start justify-between">
                   <div className="flex-1 min-w-0">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <span className="text-lg">{statusConfig.microIcon}</span>
+                      <Badge className={`${app.departmentColor} border px-2 py-1 text-xs font-medium`}>
+                        {app.department}
+                      </Badge>
+                    </div>
                     <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary/90 transition-colors mb-2">
                       {app.title}
                     </CardTitle>
@@ -113,7 +130,12 @@ export function ApplicationTracker() {
                       <statusConfig.icon className="w-3 h-3 mr-1" />
                       {statusConfig.emoji} {app.status}
                     </Badge>
-                    <Button variant="ghost" size="icon" className="hover:bg-primary/20">
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="hover:bg-primary/20"
+                      title="View full application status"
+                    >
                       <ExternalLink className="w-4 h-4" />
                     </Button>
                   </div>
@@ -121,26 +143,28 @@ export function ApplicationTracker() {
               </CardHeader>
 
               <CardContent className="space-y-6 relative z-10">
-                {/* Progress Section */}
+                {/* Enhanced Progress Section */}
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium text-muted-foreground">Progress</span>
                     <span className="text-lg font-bold text-foreground">{app.progress}%</span>
                   </div>
                   <div className="relative">
-                    <Progress value={app.progress} className="h-3 bg-secondary/20" />
+                    <Progress value={app.progress} className="h-4 bg-secondary/20 overflow-hidden" />
                     <div 
-                      className="absolute top-0 left-0 h-3 rounded-full bg-gradient-to-r from-primary to-blue-500 transition-all duration-700 group-hover:animate-pulse"
+                      className="absolute top-0 left-0 h-4 rounded-full transition-all duration-1000 group-hover:animate-pulse overflow-hidden"
                       style={{ width: `${app.progress}%` }}
-                    />
+                    >
+                      <div className="h-full w-full bg-gradient-to-r from-primary via-blue-500 to-cyan-400 animate-gradient-flow" />
+                    </div>
                   </div>
                 </div>
 
                 {/* Details Row */}
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <Avatar className="h-8 w-8 border-2 border-primary/30">
-                      <AvatarFallback className="bg-primary/20 text-primary font-semibold text-xs">
+                    <Avatar className="h-10 w-10 border-2 border-primary/30 group-hover:border-primary/50 transition-colors">
+                      <AvatarFallback className="bg-primary/20 text-primary font-semibold text-sm">
                         {app.assigneeInitials}
                       </AvatarFallback>
                     </Avatar>
@@ -155,7 +179,7 @@ export function ApplicationTracker() {
                     <div>
                       <div className="text-xs text-muted-foreground">Due in</div>
                       <div className={`font-bold ${
-                        app.daysLeft <= 7 ? 'text-red-400' :
+                        app.daysLeft <= 7 ? 'text-red-400 animate-pulse' :
                         app.daysLeft <= 14 ? 'text-tribal-amber' :
                         'text-green-400'
                       }`}>
