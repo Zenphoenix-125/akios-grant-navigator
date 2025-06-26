@@ -6,7 +6,7 @@ import { GrantFilters } from "@/components/GrantFilters";
 import { GrantDiscoveryCard } from "@/components/GrantDiscoveryCard";
 import { ApplicationTracker } from "@/components/ApplicationTracker";
 import { Button } from "@/components/ui/button";
-import { Plus, Bell, Settings } from "lucide-react";
+import { Plus, Bell, Settings, FileDown } from "lucide-react";
 
 // Mock grant data
 const mockGrants = [
@@ -55,35 +55,44 @@ const mockGrants = [
 const Index = () => {
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-background">
+      <div className="min-h-screen flex w-full bg-background relative overflow-hidden">
+        {/* Subtle tribal pattern overlay */}
+        <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-br from-tribal-amber/20 via-transparent to-primary/10" />
+        </div>
+        
         <GrantManagerSidebar />
         
-        <main className="flex-1 overflow-hidden">
+        <main className="flex-1 overflow-hidden relative z-10">
           <div className="h-full flex flex-col">
-            {/* Header */}
-            <header className="border-b border-border/50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-40">
+            {/* Enhanced Header */}
+            <header className="border-b border-border/30 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 sticky top-0 z-40">
               <div className="flex items-center justify-between p-6">
                 <div className="flex items-center space-x-4">
                   <SidebarTrigger className="lg:hidden" />
                   <div>
-                    <h1 className="text-2xl font-bold text-foreground">
+                    <h1 className="text-3xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
                       Grant Discovery
                     </h1>
-                    <p className="text-muted-foreground">
-                      Saginaw Chippewa Indian Tribe • FY 2024
+                    <p className="text-muted-foreground mt-1">
+                      Saginaw Chippewa Indian Tribe • <span className="text-tribal-amber font-medium">FY 2024</span>
                     </p>
                   </div>
                 </div>
                 
                 <div className="flex items-center space-x-3">
-                  <Button size="sm" className="bg-primary hover:bg-primary/90">
+                  <Button size="sm" variant="outline" className="bg-background/60 backdrop-blur-sm border-border/40 hover:border-primary/40">
+                    <FileDown className="w-4 h-4 mr-2" />
+                    Export PDF
+                  </Button>
+                  <Button size="sm" className="bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 shadow-lg hover:shadow-primary/30 transition-all duration-300">
                     <Plus className="w-4 h-4 mr-2" />
                     New Application
                   </Button>
-                  <Button variant="ghost" size="icon">
+                  <Button variant="ghost" size="icon" className="hover:bg-primary/20">
                     <Bell className="w-4 h-4" />
                   </Button>
-                  <Button variant="ghost" size="icon">
+                  <Button variant="ghost" size="icon" className="hover:bg-primary/20">
                     <Settings className="w-4 h-4" />
                   </Button>
                 </div>
@@ -92,30 +101,31 @@ const Index = () => {
 
             {/* Main Content */}
             <div className="flex-1 overflow-auto">
-              <div className="p-6 space-y-8">
+              <div className="p-8 space-y-12 max-w-7xl mx-auto">
                 {/* Performance Dashboard */}
                 <section>
-                  <h2 className="text-xl font-semibold text-foreground mb-6">
+                  <h2 className="text-2xl font-bold text-foreground mb-8 flex items-center">
                     Performance Overview
+                    <div className="ml-3 w-2 h-2 bg-green-400 rounded-full animate-pulse" />
                   </h2>
                   <PerformanceDashboard />
                 </section>
 
                 {/* Grant Discovery */}
                 <section>
-                  <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-xl font-semibold text-foreground">
+                  <div className="flex items-center justify-between mb-8">
+                    <h2 className="text-2xl font-bold text-foreground">
                       Available Grants
                     </h2>
-                    <div className="text-sm text-muted-foreground">
-                      <span className="text-tribal-amber font-medium">{mockGrants.length}</span> opportunities found
+                    <div className="text-sm text-muted-foreground bg-background/60 backdrop-blur-sm px-4 py-2 rounded-full border border-border/30">
+                      <span className="text-tribal-amber font-bold text-lg">{mockGrants.length}</span> opportunities found
                     </div>
                   </div>
                   
-                  <div className="space-y-6">
+                  <div className="space-y-8">
                     <GrantFilters />
                     
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                       {mockGrants.map((grant, index) => (
                         <GrantDiscoveryCard key={index} {...grant} />
                       ))}
