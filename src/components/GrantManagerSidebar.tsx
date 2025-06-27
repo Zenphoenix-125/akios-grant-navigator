@@ -1,13 +1,5 @@
 
-import { 
-  Search, 
-  FileText, 
-  Calendar, 
-  FolderOpen, 
-  Calculator,
-  Users,
-  ChevronLeft
-} from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -27,37 +19,31 @@ const menuItems = [
   {
     title: "Grant Discovery",
     url: "#discovery",
-    description: "Find opportunities",
     isActive: true
   },
   {
     title: "Applications",
     url: "#applications", 
-    description: "Track submissions",
     isActive: false
   },
   {
     title: "Deadlines",
     url: "#deadlines",
-    description: "Timeline view",
     isActive: false
   },
   {
     title: "Document Vault",
     url: "#documents",
-    description: "File storage",
     isActive: false
   },
   {
     title: "Budget Tools",
     url: "#budget",
-    description: "Cost analysis",
     isActive: false
   },
   {
     title: "Team & Access",
     url: "#team",
-    description: "User management",
     isActive: false
   },
 ];
@@ -93,7 +79,7 @@ export function GrantManagerSidebar() {
         </div>
       </SidebarHeader>
       
-      <SidebarContent className="py-6">
+      <SidebarContent className="py-8">
         <SidebarGroup>
           <SidebarGroupLabel className="akios-sidebar-section-header">
             {!isCollapsed && "MANAGEMENT"}
@@ -104,16 +90,13 @@ export function GrantManagerSidebar() {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton 
                     asChild 
-                    className={`akios-nav-item ${item.isActive ? 'akios-nav-item-active' : ''}`}
+                    className={`akios-nav-item-clean ${item.isActive ? 'akios-nav-item-active-clean' : ''}`}
                   >
                     <a href={item.url} className="flex items-center w-full">
                       {!isCollapsed && (
                         <div className="flex-1 min-w-0">
-                          <div className="akios-nav-title">
+                          <div className="akios-nav-title-clean">
                             {item.title}
-                          </div>
-                          <div className="akios-nav-description">
-                            {item.description}
                           </div>
                         </div>
                       )}
@@ -126,7 +109,7 @@ export function GrantManagerSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="p-4 border-t border-border/10">
+      <SidebarFooter className="p-6 border-t border-border/10">
         <div className="flex items-center justify-center">
           <div className="akios-tribal-watermark text-center">
             {!isCollapsed && (

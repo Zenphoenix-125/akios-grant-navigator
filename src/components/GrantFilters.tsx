@@ -1,8 +1,6 @@
 
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -10,13 +8,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-const activeFilters = [
-  "Education",
-  "Health", 
-  "Match Required",
-  "> $100K"
-];
 
 export function GrantFilters() {
   return (
@@ -47,25 +38,6 @@ export function GrantFilters() {
           </Select>
         </div>
       </div>
-
-      {/* Active Filters */}
-      {activeFilters.length > 0 && (
-        <div className="flex items-center gap-3 flex-wrap p-4 bg-background/30 backdrop-blur-sm rounded-xl border border-border/30">
-          {activeFilters.map((filter) => (
-            <Badge 
-              key={filter}
-              variant="secondary" 
-              className="bg-primary/20 text-primary hover:bg-primary/30 cursor-pointer transition-all duration-200 hover:scale-105 px-3 py-1"
-            >
-              {filter}
-              <span className="ml-2 text-xs hover:text-red-400 transition-colors">×</span>
-            </Badge>
-          ))}
-          <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-all">
-            Clear all
-          </Button>
-        </div>
-      )}
     </div>
   );
 }
