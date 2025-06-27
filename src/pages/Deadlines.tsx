@@ -154,7 +154,7 @@ const Deadlines = () => {
                           <CardHeader className="pb-3">
                             <CardTitle className="text-sm font-medium text-muted-foreground flex items-center">
                               <Calendar className="w-4 h-4 text-green-400 mr-2" />
-                              Future (>30 days)
+                              Future ({'>'}30 days)
                             </CardTitle>
                           </CardHeader>
                           <CardContent>
