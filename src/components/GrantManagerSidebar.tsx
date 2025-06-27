@@ -27,42 +27,36 @@ const menuItems = [
   {
     title: "Grant Discovery",
     url: "#discovery",
-    icon: Search,
     description: "Find opportunities",
     isActive: true
   },
   {
     title: "Applications",
     url: "#applications", 
-    icon: FileText,
     description: "Track submissions",
     isActive: false
   },
   {
     title: "Deadlines",
     url: "#deadlines",
-    icon: Calendar,
     description: "Timeline view",
     isActive: false
   },
   {
     title: "Document Vault",
     url: "#documents",
-    icon: FolderOpen,
     description: "File storage",
     isActive: false
   },
   {
     title: "Budget Tools",
     url: "#budget",
-    icon: Calculator,
     description: "Cost analysis",
     isActive: false
   },
   {
     title: "Team & Access",
     url: "#team",
-    icon: Users,
     description: "User management",
     isActive: false
   },
@@ -99,27 +93,26 @@ export function GrantManagerSidebar() {
         </div>
       </SidebarHeader>
       
-      <SidebarContent className="py-4">
+      <SidebarContent className="py-6">
         <SidebarGroup>
-          <SidebarGroupLabel className="sidebar-section-header">
+          <SidebarGroupLabel className="akios-sidebar-section-header">
             {!isCollapsed && "MANAGEMENT"}
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className="space-y-1">
+            <SidebarMenu className="space-y-2">
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton 
                     asChild 
-                    className={`nav-item ${item.isActive ? 'nav-item-active' : ''}`}
+                    className={`akios-nav-item ${item.isActive ? 'akios-nav-item-active' : ''}`}
                   >
-                    <a href={item.url} className="flex items-center space-x-3 w-full">
-                      <item.icon className="functional-icon flex-shrink-0" />
+                    <a href={item.url} className="flex items-center w-full">
                       {!isCollapsed && (
                         <div className="flex-1 min-w-0">
-                          <div className="text-sm font-medium">
+                          <div className="akios-nav-title">
                             {item.title}
                           </div>
-                          <div className="text-xs text-muted-foreground/70 leading-tight">
+                          <div className="akios-nav-description">
                             {item.description}
                           </div>
                         </div>
@@ -135,13 +128,13 @@ export function GrantManagerSidebar() {
 
       <SidebarFooter className="p-4 border-t border-border/10">
         <div className="flex items-center justify-center">
-          <div className="tribal-watermark text-center">
+          <div className="akios-tribal-watermark text-center">
             {!isCollapsed && (
-              <div className="text-xs font-medium">
+              <div className="text-xs font-medium text-muted-foreground/60">
                 Saginaw Chippewa
               </div>
             )}
-            <div className="w-8 h-0.5 bg-tribal-amber/20 mx-auto mt-1 rounded-full"></div>
+            <div className="w-8 h-0.5 bg-tribal-amber/20 mx-auto mt-2 rounded-full"></div>
           </div>
         </div>
       </SidebarFooter>

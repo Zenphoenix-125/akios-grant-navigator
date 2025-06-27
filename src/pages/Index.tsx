@@ -160,9 +160,6 @@ const Index = () => {
                     <section className="akios-section">
                       <div className="flex items-center justify-between mb-8">
                         <h2 className="section-header">Grant Opportunities</h2>
-                        <div className="text-sm text-muted-foreground bg-background/60 backdrop-blur-sm px-4 py-2 rounded-full border border-border/20">
-                          <span className="text-tribal-amber font-semibold">{mockGrants.length + aiSuggestions.length}</span> opportunities
-                        </div>
                       </div>
                       
                       <div className="akios-spacing-lg">
@@ -170,15 +167,15 @@ const Index = () => {
                         
                         <Tabs defaultValue="all" className="w-full">
                           <div className="flex justify-center mb-8">
-                            <TabsList className="bg-background/50 backdrop-blur-sm border border-border/20">
-                              <TabsTrigger value="all" className="text-sm font-semibold px-6">
+                            <TabsList className="akios-tabs-list">
+                              <TabsTrigger value="all" className="akios-tab-trigger">
                                 All Grants
                               </TabsTrigger>
-                              <TabsTrigger value="ai-recommended" className="text-sm font-semibold px-6">
+                              <TabsTrigger value="ai-recommended" className="akios-tab-trigger">
                                 <Sparkles className="system-icon mr-2" />
                                 AI Recommended
                               </TabsTrigger>
-                              <TabsTrigger value="impact" className="text-sm font-semibold px-6">
+                              <TabsTrigger value="impact" className="akios-tab-trigger">
                                 Impact Dashboard
                               </TabsTrigger>
                             </TabsList>

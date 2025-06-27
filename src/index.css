@@ -130,20 +130,40 @@
   }
   
   /* Enhanced navigation item styling */
-  .nav-item {
-    @apply flex items-center space-x-3 px-4 py-3 mx-2 rounded-lg;
-    @apply hover:bg-accent/20 transition-all duration-200;
-    @apply text-sm font-medium text-foreground;
-    @apply relative;
+  .akios-nav-item {
+    @apply flex items-center px-4 py-4 mx-2 rounded-xl;
+    @apply hover:bg-accent/20 transition-all duration-300;
+    @apply relative cursor-pointer;
+    @apply border border-transparent hover:border-border/20;
   }
   
-  .nav-item-active {
-    @apply bg-primary/10 text-primary;
+  .akios-nav-item-active {
+    @apply bg-gradient-to-r from-primary/10 to-primary/5;
+    @apply border-primary/20;
     @apply shadow-sm;
   }
   
-  .nav-item-active::before {
-    @apply content-[''] absolute left-0 top-3 bottom-3 w-0.5 bg-primary rounded-r;
+  .akios-nav-item-active::before {
+    @apply content-[''] absolute left-0 top-4 bottom-4 w-1 bg-primary rounded-r-full;
+    @apply shadow-[0_0_8px_hsl(var(--primary)/0.4)];
+  }
+  
+  .akios-nav-title {
+    @apply text-base font-semibold text-foreground;
+    @apply transition-colors duration-200;
+  }
+  
+  .akios-nav-item-active .akios-nav-title {
+    @apply text-primary font-bold;
+  }
+  
+  .akios-nav-description {
+    @apply text-sm text-muted-foreground/70 mt-1;
+    @apply transition-colors duration-200;
+  }
+  
+  .akios-nav-item-active .akios-nav-description {
+    @apply text-primary/70;
   }
   
   /* Enhanced section header styling */
@@ -152,9 +172,10 @@
     @apply flex items-center space-x-2;
   }
   
-  .sidebar-section-header {
-    @apply text-xs font-medium text-muted-foreground/70 uppercase tracking-wider;
-    @apply px-4 py-3 mb-2;
+  .akios-sidebar-section-header {
+    @apply text-xs font-medium text-muted-foreground/50 uppercase tracking-wider;
+    @apply px-4 py-4 mb-2;
+    @apply border-b border-border/10;
   }
   
   /* Grid layouts with max-width containers */
@@ -204,6 +225,11 @@
   .akios-spacing-lg {
     @apply space-y-8;
   }
+
+  /* Tribal branding watermark */
+  .akios-tribal-watermark {
+    @apply opacity-40;
+  }
 }
 
 /* Minimal animations - only subtle transitions */
@@ -241,9 +267,4 @@
 
 .functional-icon {
   @apply w-4 h-4 opacity-60;
-}
-
-/* Tribal branding watermark */
-.tribal-watermark {
-  @apply opacity-5 text-tribal-amber/20;
 }
