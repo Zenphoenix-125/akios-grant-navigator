@@ -7,70 +7,70 @@
 
 @layer base {
   :root {
-    --background: 222.2 84% 4.9%;
+    --background: 222.2 84% 6.5%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
+    --card: 222.2 84% 7%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222.2 84% 4.9%;
+    --popover: 222.2 84% 7%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 217.2 91.2% 59.8%;
+    --primary: 217.2 91.2% 64%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 217.2 32.6% 17.5%;
+    --secondary: 217.2 32.6% 20%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 217.2 32.6% 20%;
+    --muted-foreground: 215 20.2% 70%;
 
-    --accent: 217.2 32.6% 17.5%;
+    --accent: 217.2 32.6% 20%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
+    --border: 217.2 32.6% 22%;
+    --input: 217.2 32.6% 20%;
     --ring: 212.7 26.8% 83.9%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 222.2 84% 4.9%;
+    --sidebar-background: 222.2 84% 6%;
     --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 217.2 91.2% 59.8%;
+    --sidebar-primary: 217.2 91.2% 64%;
     --sidebar-primary-foreground: 222.2 47.4% 11.2%;
-    --sidebar-accent: 217.2 32.6% 17.5%;
+    --sidebar-accent: 217.2 32.6% 20%;
     --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 217.2 32.6% 17.5%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-border: 217.2 32.6% 22%;
+    --sidebar-ring: 217.2 91.2% 64%;
 
     /* Custom tribal colors */
-    --tribal-amber: 45 96% 64%;
-    --tribal-copper: 25 95% 53%;
-    --tribal-sage: 120 13% 58%;
+    --tribal-amber: 45 96% 68%;
+    --tribal-copper: 25 95% 58%;
+    --tribal-sage: 120 13% 63%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 222.2 84% 6.5%;
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
+    --card: 222.2 84% 7%;
     --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
+    --popover: 222.2 84% 7%;
     --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
+    --primary: 217.2 91.2% 64%;
     --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
+    --secondary: 217.2 32.6% 20%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
+    --muted: 217.2 32.6% 20%;
+    --muted-foreground: 215 20.2% 70%;
+    --accent: 217.2 32.6% 20%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
+    --border: 217.2 32.6% 22%;
+    --input: 217.2 32.6% 20%;
     --ring: 212.7 26.8% 83.9%;
   }
 }
@@ -89,8 +89,8 @@
 @layer components {
   /* Standard card styling across all components */
   .akios-card {
-    @apply bg-card/50 backdrop-blur-sm border border-border/30 rounded-xl;
-    @apply hover:border-border/50 transition-all duration-200;
+    @apply bg-card/60 backdrop-blur-sm border border-border/40 rounded-xl;
+    @apply hover:border-border/60 transition-all duration-200;
   }
   
   /* Standard button styling */
@@ -106,52 +106,48 @@
   }
   
   .category-health {
-    @apply bg-green-500/10 text-green-400 border-green-500/20;
+    @apply bg-green-500/15 text-green-400 border-green-500/25;
   }
   
   .category-cultural {
-    @apply bg-purple-500/10 text-purple-400 border-purple-500/20;
+    @apply bg-purple-500/15 text-purple-400 border-purple-500/25;
   }
   
   .category-infrastructure {
-    @apply bg-yellow-500/10 text-yellow-400 border-yellow-500/20;
+    @apply bg-yellow-500/15 text-yellow-400 border-yellow-500/25;
   }
   
   .category-education {
-    @apply bg-blue-500/10 text-blue-400 border-blue-500/20;
+    @apply bg-blue-500/15 text-blue-400 border-blue-500/25;
   }
   
   .category-environment {
-    @apply bg-emerald-500/10 text-emerald-400 border-emerald-500/20;
+    @apply bg-emerald-500/15 text-emerald-400 border-emerald-500/25;
   }
   
   .category-economic {
-    @apply bg-orange-500/10 text-orange-400 border-orange-500/20;
+    @apply bg-orange-500/15 text-orange-400 border-orange-500/25;
   }
   
-  /* Clean navigation item styling - completely rebuilt */
+  /* Clean navigation item styling - final polished version */
   .akios-nav-item-clean {
-    @apply flex items-center px-6 py-4 mx-3 my-2 rounded-lg;
-    @apply hover:bg-accent/20 transition-all duration-300;
+    @apply flex items-center px-6 py-5 mx-4 my-2 rounded-xl;
+    @apply hover:bg-accent/30 transition-all duration-300;
     @apply relative cursor-pointer;
-    @apply border border-transparent hover:border-border/10;
-    @apply min-h-[56px];
+    @apply border border-transparent hover:border-border/20;
+    @apply min-h-[60px];
   }
   
   .akios-nav-item-active-clean {
-    background: rgba(59, 130, 246, 0.08);
-    @apply border-primary/15;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(99, 102, 241, 0.08));
+    @apply border-primary/25;
     @apply relative;
-    @apply shadow-sm;
-  }
-  
-  .akios-nav-item-active-clean::before {
-    @apply content-[''] absolute left-0 top-3 bottom-3 w-1 bg-primary rounded-r-full;
-    @apply shadow-[0_0_6px_hsl(var(--primary)/0.3)];
+    @apply shadow-lg;
+    transform: translateX(2px);
   }
   
   .akios-nav-title-clean {
-    @apply text-base font-semibold text-foreground;
+    @apply text-base font-semibold text-foreground/95;
     @apply transition-colors duration-200;
     @apply leading-6;
   }
@@ -167,9 +163,9 @@
   }
   
   .akios-sidebar-section-header {
-    @apply text-xs font-medium text-muted-foreground/60 uppercase tracking-wider;
-    @apply px-6 py-4 mb-2;
-    @apply border-b border-border/10;
+    @apply text-xs font-medium text-muted-foreground/75 uppercase tracking-wider;
+    @apply px-6 py-5 mb-3;
+    @apply border-b border-border/15;
   }
   
   /* Grid layouts with max-width containers */
@@ -198,16 +194,16 @@
 
   /* Enhanced tab styling */
   .akios-tabs-list {
-    @apply inline-flex h-12 items-center justify-center rounded-xl bg-muted/30 p-1 text-muted-foreground backdrop-blur-sm border border-border/20;
+    @apply inline-flex h-12 items-center justify-center rounded-xl bg-muted/40 p-1 text-muted-foreground backdrop-blur-sm border border-border/25;
   }
 
   .akios-tab-trigger {
     @apply inline-flex items-center justify-center whitespace-nowrap rounded-lg px-6 py-2 text-sm font-medium ring-offset-background transition-all;
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
     @apply disabled:pointer-events-none disabled:opacity-50;
-    @apply data-[state=active]:bg-primary/20 data-[state=active]:text-primary data-[state=active]:shadow-sm;
-    @apply data-[state=active]:border data-[state=active]:border-primary/20;
-    @apply hover:bg-accent/50 hover:text-accent-foreground;
+    @apply data-[state=active]:bg-primary/25 data-[state=active]:text-primary data-[state=active]:shadow-sm;
+    @apply data-[state=active]:border data-[state=active]:border-primary/25;
+    @apply hover:bg-accent/60 hover:text-accent-foreground;
   }
 
   /* Consistent spacing utilities */
@@ -225,7 +221,7 @@
 
   /* Tribal branding watermark */
   .akios-tribal-watermark {
-    @apply opacity-40;
+    @apply opacity-50;
   }
 }
 
@@ -247,21 +243,21 @@
 
 /* Enhanced glass morphism utility */
 .glass {
-  background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* Subtle hover effects only */
 .hover-glow:hover {
-  box-shadow: 0 0 20px hsl(var(--primary) / 0.1);
+  box-shadow: 0 0 25px hsl(var(--primary) / 0.15);
 }
 
 /* System icons - minimal and refined */
 .system-icon {
-  @apply w-3.5 h-3.5 opacity-50;
+  @apply w-3.5 h-3.5 opacity-60;
 }
 
 .functional-icon {
-  @apply w-4 h-4 opacity-60;
+  @apply w-4 h-4 opacity-70;
 }
