@@ -99,9 +99,9 @@
     @apply shadow-md hover:shadow-lg transition-all duration-200;
   }
   
-  /* Category pill styling - using proper Tailwind tribal color classes */
+  /* Category pill styling - clean text-only pills */
   .category-pill {
-    @apply px-3 py-1 rounded-full text-xs font-medium border;
+    @apply px-3 py-1.5 rounded-full text-xs font-medium border;
     @apply transition-colors duration-200;
   }
   
@@ -129,56 +129,80 @@
     @apply bg-orange-500/10 text-orange-400 border-orange-500/20;
   }
   
-  /* Navigation item styling */
+  /* Enhanced navigation item styling */
   .nav-item {
-    @apply flex items-center space-x-3 p-3 rounded-lg;
-    @apply hover:bg-accent/30 transition-colors duration-200;
+    @apply flex items-center space-x-3 px-4 py-3 mx-2 rounded-lg;
+    @apply hover:bg-accent/20 transition-all duration-200;
     @apply text-sm font-medium text-foreground;
+    @apply relative;
   }
   
   .nav-item-active {
-    @apply bg-primary/10 text-primary border-l-2 border-primary;
+    @apply bg-primary/10 text-primary;
+    @apply shadow-sm;
   }
   
-  /* Section header styling */
+  .nav-item-active::before {
+    @apply content-[''] absolute left-0 top-3 bottom-3 w-0.5 bg-primary rounded-r;
+  }
+  
+  /* Enhanced section header styling */
   .section-header {
-    @apply text-xl font-semibold text-foreground mb-4;
+    @apply text-xl font-semibold text-foreground mb-6;
     @apply flex items-center space-x-2;
   }
   
-  /* Grid layouts */
+  .sidebar-section-header {
+    @apply text-xs font-medium text-muted-foreground/70 uppercase tracking-wider;
+    @apply px-4 py-3 mb-2;
+  }
+  
+  /* Grid layouts with max-width containers */
   .akios-grid {
-    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4;
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
+    @apply max-w-7xl mx-auto;
   }
   
   .akios-stats-grid {
-    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4;
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6;
+    @apply max-w-7xl mx-auto;
   }
 
-  /* Unified layout system */
+  /* Unified layout system with proper containers */
   .akios-layout {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-7xl mx-auto px-6 sm:px-8 lg:px-10;
   }
 
   .akios-section {
-    @apply space-y-6 mb-8;
+    @apply space-y-8 mb-10;
   }
 
   .akios-section-title {
     @apply text-2xl font-bold text-foreground mb-6;
   }
 
-  /* Consistent spacing */
-  .akios-spacing-sm {
-    @apply space-y-3;
+  /* Enhanced tab styling */
+  .akios-tab-active {
+    @apply bg-primary/15 text-primary border border-primary/20;
+    @apply shadow-sm;
   }
   
-  .akios-spacing-md {
+  .akios-tab-inactive {
+    @apply bg-background/60 text-muted-foreground border border-border/20;
+    @apply hover:bg-accent/10 hover:text-foreground;
+  }
+
+  /* Consistent spacing utilities */
+  .akios-spacing-sm {
     @apply space-y-4;
   }
   
-  .akios-spacing-lg {
+  .akios-spacing-md {
     @apply space-y-6;
+  }
+  
+  .akios-spacing-lg {
+    @apply space-y-8;
   }
 }
 
@@ -210,11 +234,16 @@
   box-shadow: 0 0 20px hsl(var(--primary) / 0.1);
 }
 
-/* System icons - smaller and more subtle */
+/* System icons - minimal and refined */
 .system-icon {
-  @apply w-3.5 h-3.5 opacity-60;
+  @apply w-3.5 h-3.5 opacity-50;
 }
 
 .functional-icon {
-  @apply w-4 h-4 opacity-70;
+  @apply w-4 h-4 opacity-60;
+}
+
+/* Tribal branding watermark */
+.tribal-watermark {
+  @apply opacity-5 text-tribal-amber/20;
 }

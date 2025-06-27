@@ -5,7 +5,8 @@ import {
   Calendar, 
   FolderOpen, 
   Calculator,
-  Users
+  Users,
+  ChevronLeft
 } from "lucide-react";
 import {
   Sidebar,
@@ -17,7 +18,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarHeader,
+  SidebarFooter,
 } from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 const menuItems = [
   {
@@ -56,33 +60,49 @@ const menuItems = [
     isActive: false
   },
   {
-    title: "Team & Roles",
+    title: "Team & Access",
     url: "#team",
     icon: Users,
-    description: "Access control",
+    description: "User management",
     isActive: false
   },
 ];
 
 export function GrantManagerSidebar() {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
   return (
-    <Sidebar className="border-r border-border/30">
-      <SidebarHeader className="border-b border-border/30 p-6">
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">A</span>
+    <Sidebar className="border-r border-border/20 bg-background/95 backdrop-blur-sm">
+      <SidebarHeader className="border-b border-border/10 p-6 pb-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-blue-500 flex items-center justify-center shadow-sm">
+              <span className="text-primary-foreground font-bold text-sm">A</span>
+            </div>
+            {!isCollapsed && (
+              <div>
+                <h2 className="text-base font-semibold text-foreground">AKIOS</h2>
+                <p className="text-xs text-tribal-amber font-medium">Grant Manager</p>
+              </div>
+            )}
           </div>
-          <div>
-            <h2 className="text-base font-semibold text-foreground">AKIOS</h2>
-            <p className="text-xs text-tribal-amber font-medium">Grant Manager</p>
-          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-7 w-7 hover:bg-accent/20"
+            onClick={() => setIsCollapsed(!isCollapsed)}
+          >
+            <ChevronLeft 
+              className={`h-3.5 w-3.5 transition-transform ${isCollapsed ? 'rotate-180' : ''}`} 
+            />
+          </Button>
         </div>
       </SidebarHeader>
       
-      <SidebarContent className="p-4">
+      <SidebarContent className="py-4">
         <SidebarGroup>
-          <SidebarGroupLabel className="text-muted-foreground text-xs uppercase tracking-wider font-medium mb-3">
-            Management
+          <SidebarGroupLabel className="sidebar-section-header">
+            {!isCollapsed && "MANAGEMENT"}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
@@ -92,16 +112,18 @@ export function GrantManagerSidebar() {
                     asChild 
                     className={`nav-item ${item.isActive ? 'nav-item-active' : ''}`}
                   >
-                    <a href={item.url} className="flex items-center space-x-3">
-                      <item.icon className="functional-icon" />
-                      <div className="flex-1 min-w-0">
-                        <div className="text-sm font-medium">
-                          {item.title}
+                    <a href={item.url} className="flex items-center space-x-3 w-full">
+                      <item.icon className="functional-icon flex-shrink-0" />
+                      {!isCollapsed && (
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium">
+                            {item.title}
+                          </div>
+                          <div className="text-xs text-muted-foreground/70 leading-tight">
+                            {item.description}
+                          </div>
                         </div>
-                        <div className="text-xs text-muted-foreground/80">
-                          {item.description}
-                        </div>
-                      </div>
+                      )}
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -110,6 +132,19 @@ export function GrantManagerSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
+      <SidebarFooter className="p-4 border-t border-border/10">
+        <div className="flex items-center justify-center">
+          <div className="tribal-watermark text-center">
+            {!isCollapsed && (
+              <div className="text-xs font-medium">
+                Saginaw Chippewa
+              </div>
+            )}
+            <div className="w-8 h-0.5 bg-tribal-amber/20 mx-auto mt-1 rounded-full"></div>
+          </div>
+        </div>
+      </SidebarFooter>
     </Sidebar>
   );
 }

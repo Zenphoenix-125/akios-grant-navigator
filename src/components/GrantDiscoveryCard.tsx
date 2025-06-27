@@ -64,20 +64,20 @@ export function GrantDiscoveryCard({
   const isHighPriority = matchScore >= 90 && (isHighValue || isUrgent);
 
   return (
-    <Card className={`akios-card ${isHighPriority ? 'border-tribal-amber/40 hover:border-tribal-amber/60' : ''} group cursor-pointer`}>
-      <CardHeader className="pb-3">
+    <Card className={`akios-card ${isHighPriority ? 'border-tribal-amber/40 hover:border-tribal-amber/60' : ''} group cursor-pointer h-full flex flex-col`}>
+      <CardHeader className="pb-4 flex-grow">
         <div className="flex items-start justify-between">
           <div className="flex-1 min-w-0 pr-3">
             {isHighPriority && (
-              <Badge className="mb-2 bg-tribal-amber/15 text-tribal-amber border-tribal-amber/30 text-xs">
+              <Badge className="mb-3 bg-tribal-amber/15 text-tribal-amber border-tribal-amber/30 text-xs">
                 <Zap className="w-2.5 h-2.5 mr-1" />
                 Priority
               </Badge>
             )}
-            <CardTitle className="text-base font-semibold text-foreground group-hover:text-primary/90 transition-colors line-clamp-2 mb-2">
+            <CardTitle className="text-base font-semibold text-foreground group-hover:text-primary/90 transition-colors line-clamp-2 mb-3 leading-snug">
               {title}
             </CardTitle>
-            <CardDescription className="text-muted-foreground text-sm">
+            <CardDescription className="text-muted-foreground text-sm leading-relaxed">
               {agency}
             </CardDescription>
           </div>
@@ -96,7 +96,7 @@ export function GrantDiscoveryCard({
               {category}
             </div>
             {matchRequired && (
-              <Badge variant="secondary" className="text-xs bg-secondary/50 px-2 py-0.5">
+              <Badge variant="secondary" className="text-xs bg-secondary/50 px-2 py-1">
                 Match Req.
               </Badge>
             )}
@@ -104,8 +104,8 @@ export function GrantDiscoveryCard({
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-3">
-        <div className="grid grid-cols-2 gap-3">
+      <CardContent className="space-y-4 pt-0">
+        <div className="grid grid-cols-2 gap-4">
           <div className="flex items-center space-x-2">
             <DollarSign className={`system-icon ${isHighValue ? 'text-tribal-amber' : 'text-green-400'}`} />
             <span className="text-sm font-semibold text-foreground">
@@ -118,7 +118,7 @@ export function GrantDiscoveryCard({
           </div>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Target className="system-icon text-primary" />
@@ -133,7 +133,7 @@ export function GrantDiscoveryCard({
           <Progress value={matchScore} className="h-1.5 bg-secondary/20" />
         </div>
 
-        <div className="flex items-center justify-between pt-2 border-t border-border/20">
+        <div className="flex items-center justify-between pt-3 border-t border-border/20">
           <div className="flex items-center space-x-2">
             <Clock className={`system-icon ${getUrgencyColor(daysLeft)}`} />
             <span className={`text-sm font-medium ${getUrgencyColor(daysLeft)}`}>
@@ -142,11 +142,11 @@ export function GrantDiscoveryCard({
           </div>
           <Button 
             size="sm" 
-            className="akios-button-primary text-xs px-3 py-1.5"
+            className="akios-button-primary text-xs px-4 py-2"
             title="FastFill AI Application"
           >
             Apply Now
-            <ExternalLink className="w-3 h-3 ml-1" />
+            <ExternalLink className="w-3 h-3 ml-1.5" />
           </Button>
         </div>
       </CardContent>

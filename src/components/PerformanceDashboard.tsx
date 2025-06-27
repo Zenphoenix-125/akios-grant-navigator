@@ -43,22 +43,22 @@ export function PerformanceDashboard() {
       {stats.map((stat, index) => (
         <Card 
           key={stat.title} 
-          className="akios-card hover-glow group cursor-pointer"
+          className="akios-card hover-glow group cursor-pointer h-full"
           title="View detailed analytics"
         >
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
               {stat.title}
             </CardTitle>
             <stat.icon className="functional-icon text-primary/60 group-hover:text-primary transition-colors" />
           </CardHeader>
           
-          <CardContent>
-            <div className="text-2xl font-bold text-foreground mb-1">
+          <CardContent className="pt-0">
+            <div className="text-2xl font-bold text-foreground mb-2">
               {stat.value}
             </div>
             <div className="flex items-center space-x-2">
-              <div className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+              <div className={`px-2.5 py-1 rounded-full text-xs font-medium ${
                 stat.changeType === 'increase' ? 'bg-green-500/15 text-green-400' : 
                 stat.changeType === 'decrease' ? 'bg-red-500/15 text-red-400' : 
                 'bg-tribal-amber/15 text-tribal-amber'

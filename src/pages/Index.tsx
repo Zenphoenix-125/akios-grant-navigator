@@ -1,3 +1,4 @@
+
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { GrantManagerSidebar } from "@/components/GrantManagerSidebar";
 import { PerformanceDashboard } from "@/components/PerformanceDashboard";
@@ -101,178 +102,175 @@ const Index = () => {
             <div className="h-full flex flex-col">
               {/* Header */}
               <header className="border-b border-border/20 bg-background/95 backdrop-blur-sm sticky top-0 z-40">
-                <div className="flex items-center justify-between p-6">
-                  <div className="flex items-center space-x-4">
-                    <SidebarTrigger className="lg:hidden" />
-                    <div>
-                      <h1 className="text-2xl font-bold text-foreground">
-                        Grant Discovery
-                      </h1>
-                      <p className="text-muted-foreground text-sm mt-1">
-                        Saginaw Chippewa Indian Tribe • <span className="text-tribal-amber font-medium">FY 2024</span>
-                      </p>
+                <div className="akios-layout">
+                  <div className="flex items-center justify-between py-6">
+                    <div className="flex items-center space-x-4">
+                      <SidebarTrigger className="lg:hidden" />
+                      <div>
+                        <h1 className="text-2xl font-bold text-foreground">
+                          Grant Discovery
+                        </h1>
+                        <p className="text-muted-foreground text-sm mt-1">
+                          Saginaw Chippewa Indian Tribe • <span className="text-tribal-amber font-medium">FY 2024</span>
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div className="flex items-center space-x-3">
-                    <Button 
-                      size="sm" 
-                      variant="outline" 
-                      className="bg-background/60 backdrop-blur-sm border-border/40 hover:border-tribal-amber/40"
-                    >
-                      <FileDown className="system-icon mr-2" />
-                      Executive Brief
-                    </Button>
-                    <Button size="sm" className="akios-button-primary">
-                      <Plus className="system-icon mr-2" />
-                      New Application
-                    </Button>
-                    <Button variant="ghost" size="icon" className="hover:bg-primary/10">
-                      <Calendar className="system-icon" />
-                    </Button>
-                    <Button variant="ghost" size="icon" className="hover:bg-primary/10">
-                      <Bell className="system-icon" />
-                    </Button>
-                    <Button variant="ghost" size="icon" className="hover:bg-primary/10">
-                      <Settings className="system-icon" />
-                    </Button>
+                    
+                    <div className="flex items-center space-x-3">
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        className="bg-background/60 backdrop-blur-sm border-border/40 hover:border-tribal-amber/40"
+                      >
+                        <FileDown className="system-icon mr-2" />
+                        Executive Brief
+                      </Button>
+                      <Button size="sm" className="akios-button-primary">
+                        <Plus className="system-icon mr-2" />
+                        New Application
+                      </Button>
+                      <Button variant="ghost" size="icon" className="hover:bg-primary/10">
+                        <Calendar className="system-icon" />
+                      </Button>
+                      <Button variant="ghost" size="icon" className="hover:bg-primary/10">
+                        <Bell className="system-icon" />
+                      </Button>
+                      <Button variant="ghost" size="icon" className="hover:bg-primary/10">
+                        <Settings className="system-icon" />
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </header>
 
               {/* Main Content */}
               <div className="flex-1 overflow-auto">
-                <div className="max-w-7xl mx-auto p-6 space-y-8">
-                  {/* Performance Dashboard */}
-                  <section>
-                    <h2 className="section-header">
-                      Performance Overview
-                      <div className="w-2 h-2 bg-green-400 rounded-full" />
-                    </h2>
-                    <PerformanceDashboard />
-                  </section>
+                <div className="akios-layout py-8">
+                  <div className="akios-spacing-lg">
+                    {/* Performance Dashboard */}
+                    <section className="akios-section">
+                      <h2 className="section-header">
+                        Performance Overview
+                        <div className="w-2 h-2 bg-green-400 rounded-full" />
+                      </h2>
+                      <PerformanceDashboard />
+                    </section>
 
-                  {/* Grant Discovery with Tabs */}
-                  <section>
-                    <div className="flex items-center justify-between mb-6">
-                      <h2 className="section-header">Grant Opportunities</h2>
-                      <div className="text-sm text-muted-foreground bg-background/60 backdrop-blur-sm px-4 py-2 rounded-full border border-border/20">
-                        <span className="text-tribal-amber font-semibold">{mockGrants.length + aiSuggestions.length}</span> opportunities
+                    {/* Grant Discovery with Enhanced Tabs */}
+                    <section className="akios-section">
+                      <div className="flex items-center justify-between mb-8">
+                        <h2 className="section-header">Grant Opportunities</h2>
+                        <div className="text-sm text-muted-foreground bg-background/60 backdrop-blur-sm px-4 py-2 rounded-full border border-border/20">
+                          <span className="text-tribal-amber font-semibold">{mockGrants.length + aiSuggestions.length}</span> opportunities
+                        </div>
                       </div>
-                    </div>
-                    
-                    <div className="space-y-6">
-                      <GrantFilters />
                       
-                      <Tabs defaultValue="all" className="w-full">
-                        <TabsList className="h-11 bg-background/50 backdrop-blur-sm border border-border/20 p-1">
-                          <TabsTrigger 
-                            value="all" 
-                            className="text-sm font-semibold px-4 data-[state=active]:bg-primary/10 data-[state=active]:text-primary"
-                          >
-                            All Grants
-                          </TabsTrigger>
-                          <TabsTrigger 
-                            value="ai-recommended" 
-                            className="text-sm font-semibold px-4 data-[state=active]:bg-tribal-amber/10 data-[state=active]:text-tribal-amber"
-                          >
-                            <Sparkles className="system-icon mr-2" />
-                            AI Recommended
-                          </TabsTrigger>
-                          <TabsTrigger 
-                            value="impact" 
-                            className="text-sm font-semibold px-4 data-[state=active]:bg-green-500/10 data-[state=active]:text-green-400"
-                          >
-                            Impact Dashboard
-                          </TabsTrigger>
-                        </TabsList>
+                      <div className="akios-spacing-lg">
+                        <GrantFilters />
                         
-                        <TabsContent value="all" className="space-y-6 mt-6">
-                          <div className="akios-grid">
-                            {mockGrants.map((grant, index) => (
-                              <GrantDiscoveryCard key={index} {...grant} />
-                            ))}
-                          </div>
-                        </TabsContent>
-                        
-                        <TabsContent value="ai-recommended" className="space-y-6 mt-6">
-                          <div className="mb-4 p-4 bg-gradient-to-r from-tribal-amber/5 to-primary/5 border border-tribal-amber/20 rounded-lg">
-                            <div className="flex items-center space-x-2 mb-2">
-                              <h3 className="text-base font-semibold text-foreground">AI-Powered Matching</h3>
-                              <Badge className="bg-tribal-amber/20 text-tribal-amber text-xs border-tribal-amber/40">
-                                Akios AI
-                              </Badge>
-                            </div>
-                            <p className="text-sm text-muted-foreground">
-                              Recommendations based on tribal priorities and success patterns.
-                            </p>
+                        <Tabs defaultValue="all" className="w-full">
+                          <div className="flex justify-center mb-8">
+                            <TabsList className="bg-background/50 backdrop-blur-sm border border-border/20">
+                              <TabsTrigger value="all" className="text-sm font-semibold px-6">
+                                All Grants
+                              </TabsTrigger>
+                              <TabsTrigger value="ai-recommended" className="text-sm font-semibold px-6">
+                                <Sparkles className="system-icon mr-2" />
+                                AI Recommended
+                              </TabsTrigger>
+                              <TabsTrigger value="impact" className="text-sm font-semibold px-6">
+                                Impact Dashboard
+                              </TabsTrigger>
+                            </TabsList>
                           </div>
                           
-                          <div className="akios-grid">
-                            {aiSuggestions.map((suggestion, index) => (
-                              <GrantDiscoveryCard key={index} {...suggestion} />
-                            ))}
-                          </div>
-                        </TabsContent>
-                        
-                        <TabsContent value="impact" className="space-y-6 mt-6">
-                          <div className="akios-stats-grid mb-6">
-                            {impactData.map((dept, index) => (
-                              <Card key={index} className="akios-card">
-                                <CardHeader className="pb-2">
-                                  <CardTitle className="text-sm font-medium text-muted-foreground flex items-center">
-                                    <div className={`w-3 h-3 rounded-full ${dept.color} mr-2`} />
-                                    {dept.department}
-                                  </CardTitle>
+                          <TabsContent value="all">
+                            <div className="akios-grid">
+                              {mockGrants.map((grant, index) => (
+                                <GrantDiscoveryCard key={index} {...grant} />
+                              ))}
+                            </div>
+                          </TabsContent>
+                          
+                          <TabsContent value="ai-recommended">
+                            <div className="mb-6 p-6 bg-gradient-to-r from-tribal-amber/5 to-primary/5 border border-tribal-amber/20 rounded-xl max-w-4xl mx-auto">
+                              <div className="flex items-center space-x-2 mb-3">
+                                <h3 className="text-base font-semibold text-foreground">AI-Powered Matching</h3>
+                                <Badge className="bg-tribal-amber/20 text-tribal-amber text-xs border-tribal-amber/40">
+                                  Akios AI
+                                </Badge>
+                              </div>
+                              <p className="text-sm text-muted-foreground">
+                                Recommendations based on tribal priorities and success patterns.
+                              </p>
+                            </div>
+                            
+                            <div className="akios-grid">
+                              {aiSuggestions.map((suggestion, index) => (
+                                <GrantDiscoveryCard key={index} {...suggestion} />
+                              ))}
+                            </div>
+                          </TabsContent>
+                          
+                          <TabsContent value="impact">
+                            <div className="akios-stats-grid mb-8">
+                              {impactData.map((dept, index) => (
+                                <Card key={index} className="akios-card">
+                                  <CardHeader className="pb-3">
+                                    <CardTitle className="text-sm font-medium text-muted-foreground flex items-center">
+                                      <div className={`w-3 h-3 rounded-full ${dept.color} mr-2`} />
+                                      {dept.department}
+                                    </CardTitle>
+                                  </CardHeader>
+                                  <CardContent>
+                                    <div className="text-xl font-bold text-foreground mb-1">{dept.amount}</div>
+                                    <p className="text-xs text-muted-foreground">{dept.grants} active grants</p>
+                                  </CardContent>
+                                </Card>
+                              ))}
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                              <Card className="akios-card border-green-500/20">
+                                <CardHeader className="pb-3">
+                                  <CardTitle className="text-sm font-semibold text-foreground">Top Funded</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                  <div className="text-xl font-bold text-foreground mb-1">{dept.amount}</div>
-                                  <p className="text-xs text-muted-foreground">{dept.grants} active grants</p>
+                                  <div className="text-lg font-bold text-green-400 mb-1">Infrastructure</div>
+                                  <p className="text-xs text-muted-foreground">$2.1M awarded</p>
                                 </CardContent>
                               </Card>
-                            ))}
-                          </div>
 
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <Card className="akios-card border-green-500/20">
-                              <CardHeader className="pb-2">
-                                <CardTitle className="text-sm font-semibold text-foreground">Top Funded</CardTitle>
-                              </CardHeader>
-                              <CardContent>
-                                <div className="text-lg font-bold text-green-400 mb-1">Infrastructure</div>
-                                <p className="text-xs text-muted-foreground">$2.1M awarded</p>
-                              </CardContent>
-                            </Card>
+                              <Card className="akios-card border-tribal-amber/20">
+                                <CardHeader className="pb-3">
+                                  <CardTitle className="text-sm font-semibold text-foreground">Most Active</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                  <div className="text-lg font-bold text-tribal-amber mb-1">Cultural</div>
+                                  <p className="text-xs text-muted-foreground">9 submissions</p>
+                                </CardContent>
+                              </Card>
 
-                            <Card className="akios-card border-tribal-amber/20">
-                              <CardHeader className="pb-2">
-                                <CardTitle className="text-sm font-semibold text-foreground">Most Active</CardTitle>
-                              </CardHeader>
-                              <CardContent>
-                                <div className="text-lg font-bold text-tribal-amber mb-1">Cultural</div>
-                                <p className="text-xs text-muted-foreground">9 submissions</p>
-                              </CardContent>
-                            </Card>
+                              <Card className="akios-card border-blue-500/20">
+                                <CardHeader className="pb-3">
+                                  <CardTitle className="text-sm font-semibold text-foreground">Highest Success</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                  <div className="text-lg font-bold text-blue-400 mb-1">Education</div>
+                                  <p className="text-xs text-muted-foreground">82% success rate</p>
+                                </CardContent>
+                              </Card>
+                            </div>
+                          </TabsContent>
+                        </Tabs>
+                      </div>
+                    </section>
 
-                            <Card className="akios-card border-blue-500/20">
-                              <CardHeader className="pb-2">
-                                <CardTitle className="text-sm font-semibold text-foreground">Highest Success</CardTitle>
-                              </CardHeader>
-                              <CardContent>
-                                <div className="text-lg font-bold text-blue-400 mb-1">Education</div>
-                                <p className="text-xs text-muted-foreground">82% success rate</p>
-                              </CardContent>
-                            </Card>
-                          </div>
-                        </TabsContent>
-                      </Tabs>
-                    </div>
-                  </section>
-
-                  {/* Application Tracker */}
-                  <section>
-                    <ApplicationTracker />
-                  </section>
+                    {/* Application Tracker */}
+                    <section className="akios-section">
+                      <ApplicationTracker />
+                    </section>
+                  </div>
                 </div>
               </div>
             </div>
