@@ -1,4 +1,3 @@
-
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { GrantManagerSidebar } from "@/components/GrantManagerSidebar";
 import { PerformanceDashboard } from "@/components/PerformanceDashboard";
@@ -10,6 +9,7 @@ import { Plus, Bell, Settings, FileDown, Calendar, Sparkles } from "lucide-react
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 
 // Mock grant data
 const mockGrants = [
@@ -121,13 +121,18 @@ const Index = () => {
                         size="sm" 
                         variant="outline" 
                         className="bg-background/60 backdrop-blur-sm border-border/40 hover:border-tribal-amber/40"
+                        asChild
                       >
-                        <FileDown className="system-icon mr-2" />
-                        Executive Brief
+                        <Link to="/executive-brief">
+                          <FileDown className="system-icon mr-2" />
+                          Executive Brief
+                        </Link>
                       </Button>
-                      <Button size="sm" className="akios-button-primary">
-                        <Plus className="system-icon mr-2" />
-                        New Application
+                      <Button size="sm" className="akios-button-primary" asChild>
+                        <Link to="/apply">
+                          <Plus className="system-icon mr-2" />
+                          New Application
+                        </Link>
                       </Button>
                       <Button variant="ghost" size="icon" className="hover:bg-primary/10">
                         <Calendar className="system-icon" />

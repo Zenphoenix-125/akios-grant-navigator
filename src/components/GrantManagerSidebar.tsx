@@ -14,42 +14,41 @@ import {
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { useLocation, Link } from "react-router-dom";
 
 const menuItems = [
   {
     title: "Grant Discovery",
-    url: "#discovery",
+    url: "/",
     isActive: true
   },
   {
     title: "Applications",
-    url: "#applications", 
+    url: "/applications", 
     isActive: false
   },
   {
     title: "Deadlines",
-    url: "#deadlines",
+    url: "/deadlines",
     isActive: false
   },
   {
     title: "Document Vault",
-    url: "#documents",
-    isActive: false
-  },
-  {
-    title: "Budget Tools",
-    url: "#budget",
-    isActive: false
-  },
-  {
-    title: "Team & Access",
-    url: "#team",
+    url: "/documents",
     isActive: false
   },
 ];
 
 export function GrantManagerSidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const location = useLocation();
+
+  const isActiveRoute = (url: string) => {
+    if (url === "/") {
+      return location.pathname === "/";
+    }
+    return location.pathname.startsWith(url);
+  };
 
   return (
     <Sidebar className="border-r border-border/25 bg-background/98 backdrop-blur-sm overflow-hidden">
@@ -85,14 +84,14 @@ export function GrantManagerSidebar() {
             {!isCollapsed && "MANAGEMENT"}
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className="space-y-1">
+            <SidebarMenu className="space-y-2">
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton 
-                    asChild 
-                    className={`akios-nav-item-clean ${item.isActive ? 'akios-nav-item-active-clean' : ''}`}
-                  >
-                    <a href={item.url} className="flex items-center w-full">
+                  <SidebarMenuButton asChild>
+                    <Link 
+                      to={item.url} 
+                      className={`akios-nav-item-clean ${isActiveRoute(item.url) ? 'akios-nav-item-active-clean' : ''}`}
+                    >
                       {!isCollapsed && (
                         <div className="flex-1 min-w-0">
                           <div className="akios-nav-title-clean">
@@ -100,7 +99,7 @@ export function GrantManagerSidebar() {
                           </div>
                         </div>
                       )}
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

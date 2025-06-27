@@ -1,10 +1,10 @@
-
 import { Calendar, DollarSign, Target, Clock, Heart, ExternalLink, Zap } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 interface GrantDiscoveryCardProps {
   title: string;
@@ -144,9 +144,12 @@ export function GrantDiscoveryCard({
             size="sm" 
             className="akios-button-primary text-xs px-4 py-2"
             title="FastFill AI Application"
+            asChild
           >
-            Apply Now
-            <ExternalLink className="w-3 h-3 ml-1.5" />
+            <Link to={`/apply?grant=${encodeURIComponent(title)}`}>
+              Apply Now
+              <ExternalLink className="w-3 h-3 ml-1.5" />
+            </Link>
           </Button>
         </div>
       </CardContent>
