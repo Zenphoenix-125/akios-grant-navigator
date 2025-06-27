@@ -131,15 +131,16 @@
   
   /* Clean navigation item styling - completely rebuilt */
   .akios-nav-item-clean {
-    @apply flex items-center px-6 py-4 mx-3 my-1 rounded-lg;
-    @apply hover:bg-accent/10 transition-all duration-300;
+    @apply flex items-center px-6 py-4 mx-3 my-2 rounded-lg;
+    @apply hover:bg-accent/20 transition-all duration-300;
     @apply relative cursor-pointer;
     @apply border border-transparent hover:border-border/10;
     @apply min-h-[56px];
   }
   
   .akios-nav-item-active-clean {
-    @apply bg-primary/8 border-primary/15;
+    background: rgba(59, 130, 246, 0.08);
+    @apply border-primary/15;
     @apply relative;
     @apply shadow-sm;
   }
@@ -166,9 +167,9 @@
   }
   
   .akios-sidebar-section-header {
-    @apply text-xs font-medium text-muted-foreground/40 uppercase tracking-wider;
-    @apply px-6 py-4 mb-4;
-    @apply border-b border-border/5;
+    @apply text-xs font-medium text-muted-foreground/60 uppercase tracking-wider;
+    @apply px-6 py-4 mb-2;
+    @apply border-b border-border/10;
   }
   
   /* Grid layouts with max-width containers */
