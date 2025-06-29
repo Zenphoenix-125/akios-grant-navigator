@@ -1,31 +1,31 @@
 import { useQuery } from '@tanstack/react-query';
-import { grantService, Grant, GrantFilters } from '@/services/api';
+import { grantService, GrantStats } from '@/services/api';
 
-interface UseGrantsReturn {
-  grants: Grant[];
+interface UseGrantStatsReturn {
+  stats: GrantStats | null;
   loading: boolean;
   error: string | null;
   refetch: () => Promise<unknown>;
 }
 
-export function useGrants(filters?: GrantFilters): UseGrantsReturn {
+export function useGrantStats(): UseGrantStatsReturn {
   const {
-    data: grants = [],
+    data: stats = null,
     isLoading: loading,
     error,
     refetch
   } = useQuery({
-    queryKey: ['grants', filters],
-    queryFn: () => grantService.discoverGrants(filters),
+    queryKey: ['grant-stats'],
+    queryFn: () => grantService.getStats(),
     staleTime: 1000 * 60 * 60 * 24, // 24 hours
-    gcTime: 1000 * 60 * 60 * 24, // 24 hours (formerly cacheTime)
+    gcTime: 1000 * 60 * 60 * 24, // 24 hours
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     refetchOnReconnect: false,
   });
 
   return {
-    grants,
+    stats,
     loading,
     error: error ? (error as Error).message : null,
     refetch

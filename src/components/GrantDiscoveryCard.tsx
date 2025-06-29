@@ -7,8 +7,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Grant } from "@/services/api";
 
-interface GrantDiscoveryCardProps extends Grant {}
-
 export function GrantDiscoveryCard({
   id,
   title,
@@ -22,7 +20,7 @@ export function GrantDiscoveryCard({
   description,
   eligibility,
   url
-}: GrantDiscoveryCardProps) {
+}: Grant) {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   const getCategoryClasses = (category: string) => {
