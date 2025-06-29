@@ -5,27 +5,23 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Grant } from "@/services/api";
 
-interface GrantDiscoveryCardProps {
-  title: string;
-  agency: string;
-  amount: string;
-  deadline: string;
-  matchScore: number;
-  category: string;
-  matchRequired: boolean;
-  daysLeft: number;
-}
+interface GrantDiscoveryCardProps extends Grant {}
 
 export function GrantDiscoveryCard({
+  id,
   title,
   agency,
   amount,
   deadline,
-  matchScore,
+  match_score,
   category,
-  matchRequired,
-  daysLeft
+  match_required,
+  days_left,
+  description,
+  eligibility,
+  url
 }: GrantDiscoveryCardProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
@@ -36,7 +32,9 @@ export function GrantDiscoveryCard({
       "Infrastructure": "category-infrastructure",
       "Education": "category-education",
       "Environment": "category-environment",
-      "Economic": "category-economic"
+      "Economic Development": "category-economic",
+      "Technology": "category-technology",
+      "Public Safety": "category-safety"
     };
     return categoryMap[category as keyof typeof categoryMap] || "category-pill";
   };
@@ -60,8 +58,8 @@ export function GrantDiscoveryCard({
 
   const grantValue = getGrantValue(amount);
   const isHighValue = grantValue >= 1000000;
-  const isUrgent = daysLeft <= 10;
-  const isHighPriority = matchScore >= 90 && (isHighValue || isUrgent);
+  const isUrgent = days_left <= 10;
+  const isHighPriority = match_score >= 90 && (isHighValue || isUrgent);
 
   return (
     <Card className={`akios-card ${isHighPriority ? 'border-tribal-amber/40 hover:border-tribal-amber/60' : ''} group cursor-pointer h-full flex flex-col`}>
@@ -95,7 +93,7 @@ export function GrantDiscoveryCard({
             <div className={`category-pill ${getCategoryClasses(category)}`}>
               {category}
             </div>
-            {matchRequired && (
+            {match_required && (
               <Badge variant="secondary" className="text-xs bg-secondary/50 px-2 py-1">
                 Match Req.
               </Badge>
@@ -125,19 +123,19 @@ export function GrantDiscoveryCard({
               <span className="text-sm text-muted-foreground">Match</span>
             </div>
             <div className="flex items-center space-x-2">
-              <span className={`text-sm font-bold ${getMatchScoreColor(matchScore)}`}>
-                {matchScore}%
+              <span className={`text-sm font-bold ${getMatchScoreColor(match_score)}`}>
+                {match_score}%
               </span>
             </div>
           </div>
-          <Progress value={matchScore} className="h-1.5 bg-secondary/20" />
+          <Progress value={match_score} className="h-1.5 bg-secondary/20" />
         </div>
 
         <div className="flex items-center justify-between pt-3 border-t border-border/20">
           <div className="flex items-center space-x-2">
-            <Clock className={`system-icon ${getUrgencyColor(daysLeft)}`} />
-            <span className={`text-sm font-medium ${getUrgencyColor(daysLeft)}`}>
-              {daysLeft} days left
+            <Clock className={`system-icon ${getUrgencyColor(days_left)}`} />
+            <span className={`text-sm font-medium ${getUrgencyColor(days_left)}`}>
+              {days_left} days left
             </span>
           </div>
           <Button 

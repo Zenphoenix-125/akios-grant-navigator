@@ -5,56 +5,16 @@ import { GrantFilters } from "@/components/GrantFilters";
 import { GrantDiscoveryCard } from "@/components/GrantDiscoveryCard";
 import { ApplicationTracker } from "@/components/ApplicationTracker";
 import { Button } from "@/components/ui/button";
-import { Plus, Bell, Settings, FileDown, Calendar, Sparkles } from "lucide-react";
+import { Plus, Bell, Settings, FileDown, Calendar, Sparkles, AlertCircle, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import { useGrants } from "@/hooks/useGrants";
+import { GrantFilters as GrantFiltersType } from "@/services/api";
+import { useState } from "react";
 
-// Mock grant data
-const mockGrants = [
-  {
-    title: "Tribal Health Services Expansion Grant",
-    agency: "Health Resources and Services Administration (HRSA)",
-    amount: "$750,000",
-    deadline: "Aug 15, 2024",
-    matchScore: 94,
-    category: "Health",
-    matchRequired: true,
-    daysLeft: 12
-  },
-  {
-    title: "Native Language Preservation Initiative",
-    agency: "National Endowment for the Arts",
-    amount: "$125,000",
-    deadline: "Sep 1, 2024",
-    matchScore: 87,
-    category: "Cultural",
-    matchRequired: false,
-    daysLeft: 28
-  },
-  {
-    title: "Rural Infrastructure Development Program",
-    agency: "Department of Transportation",
-    amount: "$2,500,000",
-    deadline: "Oct 30, 2024",
-    matchScore: 76,
-    category: "Infrastructure",
-    matchRequired: true,
-    daysLeft: 87
-  },
-  {
-    title: "Educational Technology Enhancement Grant",
-    agency: "Department of Education",
-    amount: "$450,000",
-    deadline: "Jul 20, 2024",
-    matchScore: 82,
-    category: "Education",
-    matchRequired: false,
-    daysLeft: 7
-  }
-];
-
+// AI suggestions data (keeping this as mock for now)
 const aiSuggestions = [
   {
     title: "EPA Environmental Justice Grant",
@@ -91,7 +51,57 @@ const impactData = [
   { department: "Cultural", amount: "$450K", grants: 5, submissions: 9, successRate: "71%", color: "bg-purple-500" }
 ];
 
+// Loading skeleton component
+const GrantSkeleton = () => (
+  <Card className="akios-card animate-pulse">
+    <CardHeader className="pb-4">
+      <div className="h-4 bg-muted rounded w-3/4 mb-2"></div>
+      <div className="h-3 bg-muted rounded w-1/2"></div>
+    </CardHeader>
+    <CardContent className="space-y-4">
+      <div className="grid grid-cols-2 gap-4">
+        <div className="h-3 bg-muted rounded"></div>
+        <div className="h-3 bg-muted rounded"></div>
+      </div>
+      <div className="h-2 bg-muted rounded"></div>
+      <div className="h-3 bg-muted rounded w-1/3"></div>
+    </CardContent>
+  </Card>
+);
+
+// Error message component
+const ErrorMessage = ({ error, onRetry }: { error: string; onRetry: () => void }) => (
+  <div className="flex flex-col items-center justify-center py-12 text-center">
+    <AlertCircle className="w-12 h-12 text-red-400 mb-4" />
+    <h3 className="text-lg font-semibold text-foreground mb-2">Failed to load grants</h3>
+    <p className="text-muted-foreground mb-4 max-w-md">{error}</p>
+    <Button onClick={onRetry} variant="outline">
+      Try Again
+    </Button>
+  </div>
+);
+
+// Empty state component
+const EmptyState = () => (
+  <div className="flex flex-col items-center justify-center py-12 text-center">
+    <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
+      <Sparkles className="w-8 h-8 text-muted-foreground" />
+    </div>
+    <h3 className="text-lg font-semibold text-foreground mb-2">No grants found</h3>
+    <p className="text-muted-foreground max-w-md">
+      Try adjusting your search criteria or filters to find more grant opportunities.
+    </p>
+  </div>
+);
+
 const Index = () => {
+  const [filters, setFilters] = useState<GrantFiltersType>({});
+  const { grants, loading, error, refetch } = useGrants(filters);
+
+  const handleFiltersChange = (newFilters: GrantFiltersType) => {
+    setFilters(newFilters);
+  };
+
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-background relative overflow-hidden">
@@ -165,16 +175,27 @@ const Index = () => {
                     <section className="akios-section">
                       <div className="flex items-center justify-between mb-8">
                         <h2 className="section-header">Grant Opportunities</h2>
+                        {loading && (
+                          <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            <span>Loading grants...</span>
+                          </div>
+                        )}
                       </div>
                       
                       <div className="akios-spacing-lg">
-                        <GrantFilters />
+                        <GrantFilters onFiltersChange={handleFiltersChange} filters={filters} />
                         
                         <Tabs defaultValue="all" className="w-full">
                           <div className="flex justify-center mb-8">
                             <TabsList className="akios-tabs-list">
                               <TabsTrigger value="all" className="akios-tab-trigger">
                                 All Grants
+                                {grants.length > 0 && (
+                                  <Badge variant="secondary" className="ml-2 text-xs">
+                                    {grants.length}
+                                  </Badge>
+                                )}
                               </TabsTrigger>
                               <TabsTrigger value="ai-recommended" className="akios-tab-trigger">
                                 <Sparkles className="system-icon mr-2" />
@@ -187,81 +208,113 @@ const Index = () => {
                           </div>
                           
                           <TabsContent value="all">
-                            <div className="akios-grid">
-                              {mockGrants.map((grant, index) => (
-                                <GrantDiscoveryCard key={index} {...grant} />
-                              ))}
-                            </div>
+                            {loading ? (
+                              <div className="akios-grid">
+                                {Array.from({ length: 6 }).map((_, index) => (
+                                  <GrantSkeleton key={index} />
+                                ))}
+                              </div>
+                            ) : error ? (
+                              <ErrorMessage error={error} onRetry={refetch} />
+                            ) : grants.length === 0 ? (
+                              <EmptyState />
+                            ) : (
+                              <div className="akios-grid">
+                                {grants.map((grant) => (
+                                  <GrantDiscoveryCard key={grant.id} {...grant} />
+                                ))}
+                              </div>
+                            )}
                           </TabsContent>
                           
                           <TabsContent value="ai-recommended">
                             <div className="mb-6 p-6 bg-gradient-to-r from-tribal-amber/5 to-primary/5 border border-tribal-amber/20 rounded-xl max-w-4xl mx-auto">
                               <div className="flex items-center space-x-2 mb-3">
                                 <h3 className="text-base font-semibold text-foreground">AI-Powered Matching</h3>
-                                <Badge className="bg-tribal-amber/20 text-tribal-amber text-xs border-tribal-amber/40">
-                                  Akios AI
-                                </Badge>
+                                <Sparkles className="w-4 h-4 text-tribal-amber" />
                               </div>
-                              <p className="text-sm text-muted-foreground">
-                                Recommendations based on tribal priorities and success patterns.
+                              <p className="text-sm text-muted-foreground mb-4">
+                                Our AI has analyzed your tribal profile and identified these high-priority opportunities based on sovereignty keywords, cultural relevance, and strategic alignment.
                               </p>
                             </div>
                             
                             <div className="akios-grid">
                               {aiSuggestions.map((suggestion, index) => (
-                                <GrantDiscoveryCard key={index} {...suggestion} />
+                                <Card key={index} className="akios-card border-tribal-amber/30 hover:border-tribal-amber/50">
+                                  <CardHeader>
+                                    <div className="flex items-start justify-between">
+                                      <div className="flex-1">
+                                        <CardTitle className="text-base mb-2">{suggestion.title}</CardTitle>
+                                        <CardDescription className="text-sm mb-3">
+                                          {suggestion.agency}
+                                        </CardDescription>
+                                        <div className="flex flex-wrap gap-2 mb-3">
+                                          {suggestion.tags.map((tag, tagIndex) => (
+                                            <Badge key={tagIndex} variant="outline" className="text-xs">
+                                              {tag}
+                                            </Badge>
+                                          ))}
+                                        </div>
+                                        <p className="text-sm text-muted-foreground">
+                                          {suggestion.reason}
+                                        </p>
+                                      </div>
+                                      <div className="flex flex-col items-end space-y-2">
+                                        <div className="text-right">
+                                          <div className="text-lg font-bold text-tribal-amber">{suggestion.amount}</div>
+                                          <div className="text-sm text-muted-foreground">{suggestion.deadline}</div>
+                                        </div>
+                                        <div className="flex items-center space-x-1">
+                                          <span className="text-sm font-bold text-green-400">{suggestion.matchScore}%</span>
+                                          <span className="text-xs text-muted-foreground">match</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </CardHeader>
+                                  <CardContent>
+                                    <div className="flex items-center justify-between">
+                                      <div className="text-sm text-muted-foreground">
+                                        {suggestion.daysLeft} days left
+                                      </div>
+                                      <Button size="sm" className="akios-button-primary">
+                                        Apply Now
+                                      </Button>
+                                    </div>
+                                  </CardContent>
+                                </Card>
                               ))}
                             </div>
                           </TabsContent>
                           
                           <TabsContent value="impact">
-                            <div className="akios-stats-grid mb-8">
-                              {impactData.map((dept, index) => (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                              {impactData.map((impact, index) => (
                                 <Card key={index} className="akios-card">
                                   <CardHeader className="pb-3">
-                                    <CardTitle className="text-sm font-medium text-muted-foreground flex items-center">
-                                      <div className={`w-3 h-3 rounded-full ${dept.color} mr-2`} />
-                                      {dept.department}
-                                    </CardTitle>
+                                    <div className="flex items-center space-x-3">
+                                      <div className={`w-3 h-3 rounded-full ${impact.color}`} />
+                                      <CardTitle className="text-base">{impact.department}</CardTitle>
+                                    </div>
                                   </CardHeader>
-                                  <CardContent>
-                                    <div className="text-xl font-bold text-foreground mb-1">{dept.amount}</div>
-                                    <p className="text-xs text-muted-foreground">{dept.grants} active grants</p>
+                                  <CardContent className="space-y-3">
+                                    <div className="text-2xl font-bold text-foreground">{impact.amount}</div>
+                                    <div className="grid grid-cols-3 gap-2 text-sm">
+                                      <div>
+                                        <div className="text-muted-foreground">Grants</div>
+                                        <div className="font-semibold">{impact.grants}</div>
+                                      </div>
+                                      <div>
+                                        <div className="text-muted-foreground">Submissions</div>
+                                        <div className="font-semibold">{impact.submissions}</div>
+                                      </div>
+                                      <div>
+                                        <div className="text-muted-foreground">Success</div>
+                                        <div className="font-semibold text-green-400">{impact.successRate}</div>
+                                      </div>
+                                    </div>
                                   </CardContent>
                                 </Card>
                               ))}
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-                              <Card className="akios-card border-green-500/20">
-                                <CardHeader className="pb-3">
-                                  <CardTitle className="text-sm font-semibold text-foreground">Top Funded</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                  <div className="text-lg font-bold text-green-400 mb-1">Infrastructure</div>
-                                  <p className="text-xs text-muted-foreground">$2.1M awarded</p>
-                                </CardContent>
-                              </Card>
-
-                              <Card className="akios-card border-tribal-amber/20">
-                                <CardHeader className="pb-3">
-                                  <CardTitle className="text-sm font-semibold text-foreground">Most Active</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                  <div className="text-lg font-bold text-tribal-amber mb-1">Cultural</div>
-                                  <p className="text-xs text-muted-foreground">9 submissions</p>
-                                </CardContent>
-                              </Card>
-
-                              <Card className="akios-card border-blue-500/20">
-                                <CardHeader className="pb-3">
-                                  <CardTitle className="text-sm font-semibold text-foreground">Highest Success</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                  <div className="text-lg font-bold text-blue-400 mb-1">Education</div>
-                                  <p className="text-xs text-muted-foreground">82% success rate</p>
-                                </CardContent>
-                              </Card>
                             </div>
                           </TabsContent>
                         </Tabs>
