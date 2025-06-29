@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from enum import Enum
@@ -6,6 +6,13 @@ from typing import Optional, List
 from datetime import datetime, timedelta
 import logging
 import re
+
+# Import authentication module
+from auth import (
+    login, get_current_user_info, get_users, create_user,
+    require_admin, require_grant_writer, require_reviewer, require_grant_writer_or_reviewer,
+    User, UserCreate, UserRole
+)
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -390,6 +397,80 @@ async def get_grant_stats():
         "urgent_grants": urgent_grants,
         "high_priority_grants": high_priority_grants,
         "category_breakdown": category_stats
+    }
+
+# Authentication routes
+@app.post("/api/auth/login")
+async def auth_login(form_data=Depends(login)):
+    """Login endpoint that returns JWT token"""
+    return form_data
+
+@app.get("/api/auth/me", response_model=User)
+async def get_current_user(current_user: User = Depends(get_current_user_info)):
+    """Get current user information"""
+    return current_user
+
+@app.get("/api/auth/users", response_model=List[User])
+async def get_all_users(current_user: User = Depends(require_admin)):
+    """Get all users (admin only)"""
+    return await get_users()
+
+@app.post("/api/auth/users", response_model=User)
+async def create_new_user(user_data: UserCreate, current_user: User = Depends(require_admin)):
+    """Create a new user (admin only)"""
+    new_user = create_user(user_data)
+    return User(
+        id=new_user.id,
+        email=new_user.email,
+        full_name=new_user.full_name,
+        role=new_user.role,
+        is_active=new_user.is_active
+    )
+
+# Protected routes with role-based access control
+@app.get("/api/auth/protected")
+async def protected_route(current_user: User = Depends(get_current_user_info)):
+    """Protected route that requires authentication"""
+    return {
+        "message": "This is a protected route",
+        "user": current_user,
+        "timestamp": datetime.now().isoformat()
+    }
+
+@app.get("/api/auth/admin-only")
+async def admin_only_route(current_user: User = Depends(require_admin)):
+    """Route that requires admin role"""
+    return {
+        "message": "This route is admin-only",
+        "user": current_user,
+        "timestamp": datetime.now().isoformat()
+    }
+
+@app.get("/api/auth/grant-writer-only")
+async def grant_writer_only_route(current_user: User = Depends(require_grant_writer)):
+    """Route that requires grant_writer role"""
+    return {
+        "message": "This route is grant writer only",
+        "user": current_user,
+        "timestamp": datetime.now().isoformat()
+    }
+
+@app.get("/api/auth/reviewer-only")
+async def reviewer_only_route(current_user: User = Depends(require_reviewer)):
+    """Route that requires reviewer role"""
+    return {
+        "message": "This route is reviewer only",
+        "user": current_user,
+        "timestamp": datetime.now().isoformat()
+    }
+
+@app.get("/api/auth/writer-or-reviewer")
+async def writer_or_reviewer_route(current_user: User = Depends(require_grant_writer_or_reviewer)):
+    """Route that requires either grant_writer or reviewer role"""
+    return {
+        "message": "This route requires grant writer or reviewer role",
+        "user": current_user,
+        "timestamp": datetime.now().isoformat()
     }
 
 if __name__ == "__main__":

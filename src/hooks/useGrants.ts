@@ -20,7 +20,7 @@ export function useGrants(filters?: GrantFilters): UseGrantsReturn {
     staleTime: 1000 * 60 * 60 * 24, // 24 hours
     gcTime: 1000 * 60 * 60 * 24, // 24 hours (formerly cacheTime)
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnReconnect: false,
   });
 

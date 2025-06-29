@@ -75,7 +75,7 @@ const ErrorMessage = ({ error, onRetry }: { error: string; onRetry: () => void }
     <AlertCircle className="w-12 h-12 text-red-400 mb-4" />
     <h3 className="text-lg font-semibold text-foreground mb-2">Failed to load grants</h3>
     <p className="text-muted-foreground mb-4 max-w-md">{error}</p>
-    <Button onClick={onRetry} variant="outline">
+    <Button onClick={onRetry} variant="outline" type="button">
       Try Again
     </Button>
   </div>
@@ -111,7 +111,7 @@ const Index = () => {
           <main className="flex-1 overflow-hidden">
             <div className="h-full flex flex-col">
               {/* Header */}
-              <header className="border-b border-border/20 bg-background/95 backdrop-blur-sm sticky top-0 z-40">
+              <header className="border-b border-border/20 bg-background backdrop-blur-sm sticky top-0 z-40">
                 <div className="akios-layout">
                   <div className="flex items-center justify-between py-6">
                     <div className="flex items-center space-x-4">

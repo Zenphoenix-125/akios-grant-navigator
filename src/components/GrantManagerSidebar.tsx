@@ -1,4 +1,3 @@
-
 import { ChevronLeft } from "lucide-react";
 import {
   Sidebar,
@@ -11,9 +10,9 @@ import {
   SidebarMenuItem,
   SidebarHeader,
   SidebarFooter,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 
 const menuItems = [
@@ -40,8 +39,9 @@ const menuItems = [
 ];
 
 export function GrantManagerSidebar() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const { state, toggleSidebar } = useSidebar();
   const location = useLocation();
+  const isCollapsed = state === "collapsed";
 
   const isActiveRoute = (url: string) => {
     if (url === "/") {
@@ -51,7 +51,10 @@ export function GrantManagerSidebar() {
   };
 
   return (
-    <Sidebar className="border-r border-border/25 bg-background/98 backdrop-blur-sm overflow-hidden">
+    <Sidebar 
+      className="border-r border-border/25 bg-background/98 backdrop-blur-sm overflow-hidden"
+      collapsible="icon"
+    >
       <SidebarHeader className="border-b border-border/15 p-6 pb-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
@@ -69,7 +72,7 @@ export function GrantManagerSidebar() {
             variant="ghost"
             size="icon"
             className="h-8 w-8 hover:bg-accent/30 rounded-lg"
-            onClick={() => setIsCollapsed(!isCollapsed)}
+            onClick={toggleSidebar}
           >
             <ChevronLeft 
               className={`h-4 w-4 transition-transform ${isCollapsed ? 'rotate-180' : ''}`} 

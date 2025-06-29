@@ -1,4 +1,3 @@
-
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { GrantManagerSidebar } from "@/components/GrantManagerSidebar";
 import { Button } from "@/components/ui/button";
@@ -78,7 +77,7 @@ const Deadlines = () => {
           <main className="flex-1 overflow-hidden">
             <div className="h-full flex flex-col">
               {/* Header */}
-              <header className="border-b border-border/20 bg-background/95 backdrop-blur-sm sticky top-0 z-40">
+              <header className="border-b border-border/20 bg-background backdrop-blur-sm sticky top-0 z-40">
                 <div className="akios-layout">
                   <div className="flex items-center justify-between py-6">
                     <div className="flex items-center space-x-4">
