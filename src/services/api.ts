@@ -38,7 +38,7 @@ export interface GrantStats {
   }>;
 }
 
-const API_BASE_URL = 'http://localhost:8000/api';
+const API_BASE_URL = 'http://localhost:8001/api';
 
 class ApiError extends Error {
   constructor(public status: number, message: string) {
